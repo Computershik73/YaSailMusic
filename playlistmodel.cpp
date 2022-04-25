@@ -37,12 +37,12 @@ bool PlaylistModel::setData(const QModelIndex &index, const QVariant &value, int
         break;
 
     case TitleRole:
-       _audios.at(index.row())->setTitle(value.toString());
+        _audios.at(index.row())->setTitle(value.toString());
         break;
     case SubtitleRole:
         _audios.at(index.row())->setArtist(value.toString());
 
-       // _audios.at(index.row())->set(value.toString());
+        // _audios.at(index.row())->set(value.toString());
     case UrlRole:
         _audios.at(index.row())->setUrl(value.toString());
     default:

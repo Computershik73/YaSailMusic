@@ -8,16 +8,16 @@ yamussdk::yamussdk(QObject *parent) : QObject(parent) {
     qRegisterMetaType<Authorization*>("Authorization*");
 
     connect(_api, &ApiRequest::gotResponse, this, &yamussdk::gotResponse);
-   // connect(_api, &ApiRequest::gotResponse, this, &yamussdk::gotResponse);
-//    connect(_api, &ApiRequest::gotResponse,
-//            [this] (QJsonValue value, ApiRequest::TaskType type) { QtConcurrent::run(this, &yamussdk::gotResponse, value, type); });
-//            [this] (QJsonValue value, ApiRequest::TaskType type) { gotResponse(value, type); });
+    // connect(_api, &ApiRequest::gotResponse, this, &yamussdk::gotResponse);
+    //    connect(_api, &ApiRequest::gotResponse,
+    //            [this] (QJsonValue value, ApiRequest::TaskType type) { QtConcurrent::run(this, &yamussdk::gotResponse, value, type); });
+    //            [this] (QJsonValue value, ApiRequest::TaskType type) { gotResponse(value, type); });
 
 
-_audios = new Audios(this);
-_audios->setApi(_api);
+    _audios = new Audios(this);
+    _audios->setApi(_api);
     // requests:
-  /*  _account = new Account(this);
+    /*  _account = new Account(this);
     _audios = new Audios(this);
     _board = new Board(this);
     _friends = new Friends(this);
@@ -60,12 +60,12 @@ _audios->setApi(_api);
     qRegisterMetaType<Wall*>("Wall*");*/
 
     // objects:
-   /* qRegisterMetaType<Group*>("Group*");
+    /* qRegisterMetaType<Group*>("Group*");
     qRegisterMetaType<News*>("News*");
     qRegisterMetaType<User*>("User*");*/
 
     //models:
-   /* _commentsModel = new CommentsModel(this);
+    /* _commentsModel = new CommentsModel(this);
     _dialogsListModel = new DialogsListModel(this);
     _friendsListModel = new FriendsListModel(this);
     _groupsListModel = new GroupsListModel(this);
@@ -82,17 +82,17 @@ _audios->setApi(_api);
     qRegisterMetaType<PhotosModel*>("PhotosModel*");*/
 
 
-//    qRegisterMetaType<Audio*>("Audio*");
-//    qRegisterMetaType<Document*>("Document*");
-//    qRegisterMetaType<Photo*>("Photo*");
-//    qRegisterMetaType<Friend*>("Friend*");
-//    qRegisterMetaType<Video*>("Video*");
+    //    qRegisterMetaType<Audio*>("Audio*");
+    //    qRegisterMetaType<Document*>("Document*");
+    //    qRegisterMetaType<Photo*>("Photo*");
+    //    qRegisterMetaType<Friend*>("Friend*");
+    //    qRegisterMetaType<Video*>("Video*");
 }
 
 yamussdk::~yamussdk() {
     delete _api;
     delete _auth;
-   /* delete _longPoll;
+    /* delete _longPoll;
 
     delete _account;
     delete _audios;
@@ -117,7 +117,7 @@ yamussdk::~yamussdk() {
     delete _wallModel;
     delete _photosModel;*/
 
-//    delete _selfProfile;
+    //    delete _selfProfile;
 }
 
 void yamussdk::setAccessTocken(QString value) {
@@ -126,7 +126,8 @@ void yamussdk::setAccessTocken(QString value) {
 }
 
 bool yamussdk::checkToken(QString token) {
-   /* QUrl urll("https://api.vk.com/method/audio.get");
+    Q_UNUSED(token);
+    /* QUrl urll("https://api.vk.com/method/audio.get");
     QUrlQuery query;
 
     query.addQueryItem("count", "1");
@@ -262,7 +263,7 @@ void yamussdk::attachPhotoToMessage(QString path) {
 
 void yamussdk::gotResponse(const QJsonValue &value, ApiRequest::TaskType type) {
     switch (type) {
-   /* case ApiRequest::ACCOUNT_BAN_USER:
+    /* case ApiRequest::ACCOUNT_BAN_USER:
         emit banSettingChanged(true);
         break;
     case ApiRequest::ACCOUNT_UNBAN_USER:
@@ -272,7 +273,7 @@ void yamussdk::gotResponse(const QJsonValue &value, ApiRequest::TaskType type) {
     case ApiRequest::AUDIO_SEARCH:
         parseAudiosList(value.toObject().value("sequence").toArray());
         break;
-   /* case ApiRequest::BOARD_GET_TOPICS:
+        /* case ApiRequest::BOARD_GET_TOPICS:
         parseTopicsList(value.toObject().value("items").toArray());
         break;
     case ApiRequest::FRIENDS_GET:
