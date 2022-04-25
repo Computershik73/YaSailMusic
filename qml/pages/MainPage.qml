@@ -85,6 +85,7 @@ Page {
             player.model.setPlayingIndex(player.currentIndex);
             //playlist.positionViewAtIndex(player.currentIndex, ListView.Center)
         }
+
     }
 
     Connections {
@@ -94,5 +95,6 @@ Page {
             //busyIndicator.running = false
             player.setPlaylist(audios, -1)
         }
+
     }
 }
