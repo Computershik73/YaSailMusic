@@ -19,16 +19,23 @@ CONFIG += sailfishapp_i18n
 QT += multimedia core gui
 
 SOURCES += \
+    apirequest.cpp \
     audio.cpp \
+    audios.cpp \
+    authorization.cpp \
     playlistmodel.cpp \
+    requestbase.cpp \
     src/YaSailMusic.cpp \
-    src/mediaplayerwrapper.cpp
+    src/mediaplayerwrapper.cpp \
+    src/settingswrapper.cpp \
+    yamussdk.cpp
 
 DISTFILES += \
     YaSailMusic.desktop \
     YaSailMusic.png \
     qml/YaSailMusic.qml \
     qml/cover/CoverPage.qml \
+    qml/pages/LoginPage.qml \
     qml/pages/MainPage.qml \
     qml/pages/MediaButton.qml \
     qml/pages/SecondPage.qml \
@@ -52,6 +59,12 @@ CONFIG += sailfishapp_i18n
 TRANSLATIONS += translations/YandexMusic-de.ts
 
 HEADERS += \
+    apirequest.h \
     audio.h \
+    audios.h \
+    authorization.h \
     playlistmodel.h \
-    src/mediaplayerwrapper.h
+    requestbase.h \
+    src/mediaplayerwrapper.h \
+    src/settingswrapper.h \
+    yamussdk.h

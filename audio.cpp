@@ -1,4 +1,12 @@
 #include "audio.h"
+#include <QJsonArray>
+#include <QNetworkRequest>
+#include <QNetworkAccessManager>
+#include <QEventLoop>
+#include <QNetworkReply>
+#include <QJsonDocument>
+#include <QJsonArray>
+#include <QJsonObject>
 
 Audio::Audio(QObject *parent) : QObject(parent)
 {}
@@ -6,17 +14,31 @@ Audio::Audio(QObject *parent) : QObject(parent)
 Audio *Audio::fromJsonObject(QJsonObject object) {
     Audio *audio = new Audio();
     if (object.contains("id")) audio->setId(object.value("id").toInt());
-    if (object.contains("owner_id")) audio->setOwnerId(object.value("owner_id").toInt());
-    if (object.contains("duration")) audio->setDuration(object.value("duration").toInt());
-    if (object.contains("artist")) audio->setArtist(object.value("artist").toString());
-    if (object.contains("title")) audio->setTitle(object.value("title").toString());
-    if (object.contains("url")) audio->setUrl(object.value("url").toString());
-    if (object.contains("link_mp3")) {
-        audio->setUrl(object.value("link_mp3").toString());
-        audio->setTitle(QString("Голосовое сообщение"));
-        audio->setArtist(QString("Голосовое сообщение"));
+    if (object.contains("durationMs")) audio->setDuration(object.value("durationMs").toInt()/1000);
+    if (object.contains("artists")) {
+        QJsonArray artists = object.value("artists").toArray();
+        QJsonObject artistt = artists.at(0).toObject();
+        audio->setArtist(artistt.value("name").toString());
     }
-
+    if (object.contains("title")) audio->setTitle(object.value("title").toString());
+        audio->setUrl("https://api.music.yandex.net/tracks/"+object.value("id").toString()+"/download-info");
+    /*QUrl urll("https://api.music.yandex.net/tracks/44317484/download-info"+QString::number(object.value("id").toInt()));
+    qDebug() << "QUrl: " << urll.toString() + "\n";
+    QNetworkRequest request(urll);
+    QNetworkAccessManager* _manager = new QNetworkAccessManager();
+   // connect(_manager, SIGNAL(finished(QNetworkReply*)), this, SLOT(finished(QNetworkReply*)));
+    QNetworkReply *reply = _manager->get(request);
+    QEventLoop looppp;
+    QObject::connect(reply, SIGNAL(finished()) , &looppp, SLOT(quit()));
+    looppp.exec();
+     QByteArray dataaa = reply->readAll();
+     QString DataAsString     = QString::fromUtf8(dataaa);
+   //  qDebug() << DataAsString;
+     QJsonDocument jDoc = QJsonDocument::fromJson(dataaa);
+     QJsonObject jObj = jDoc.object();
+      QJsonArray res = jObj.value("result").toArray();
+      QJsonObject downloadInfos = res.at(0).toObject();
+      QString downloadInfoUrl = downloadInfos.value("downloadInfoUrl").toString();*/
     return audio;
 }
 

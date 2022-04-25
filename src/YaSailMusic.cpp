@@ -14,10 +14,46 @@
 #include </home/okabe2011/SailfishOS/mersdk/targets/SailfishOS-3.4.0.24-armv7hl.default/usr/include/sailfishapp/sailfishapp.h>
 
 //#include "filesaver.h"
+#include <stdio.h>
+ #include <stdlib.h>
 #include <QScopedPointer>
 #include "mediaplayerwrapper.h"
-//#include "settingswrapper.h"
-//#include "yamusicsdk/src/yamusicsdk.h"
+#include "settingswrapper.h"
+#include "../yamussdk.h"
+
+
+void myMessageOutput(QtMsgType type, const QMessageLogContext &context, const QString &msg)
+{
+    Q_UNUSED(type);
+    Q_UNUSED(context);
+    Q_UNUSED(msg);
+    QByteArray localMsg = msg.toLocal8Bit();
+    //switch (type) {
+    /*case QtDebugMsg:
+        fprintf(stderr, "Debug: %s (%s:%u, %s)\n", localMsg.constData(), context.file, context.line, context.function);
+        break;
+    case QtInfoMsg:
+        fprintf(stderr, "Info: %s (%s:%u, %s)\n", localMsg.constData(), context.file, context.line, context.function);
+        break;
+    case QtWarningMsg:
+        fprintf(stderr, "Warning: %s (%s:%u, %s)\n", localMsg.constData(), context.file, context.line, context.function);
+        break;
+    case QtCriticalMsg:
+        fprintf(stderr, "Critical: %s (%s:%u, %s)\n", localMsg.constData(), context.file, context.line, context.function);
+        break;
+    case QtFatalMsg:
+        fprintf(stderr, "Fatal: %s (%s:%u, %s)\n", localMsg.constData(), context.file, context.line, context.function);
+        abort();
+    }*/
+
+    QFile fileOut("/home/nemo/yamus.txt");
+        if(fileOut.open(QIODevice::Append | QIODevice::Text))
+        {
+            fileOut.write(localMsg);
+            fileOut.flush();
+            fileOut.close();
+    }
+}
 
 int main(int argc, char *argv[])
 {
@@ -33,8 +69,11 @@ int main(int argc, char *argv[])
     QScopedPointer<QGuiApplication> application(SailfishApp::application(argc, argv));
     application->setOrganizationName(QStringLiteral("org.ilyavysotsky"));
     application->setApplicationName(QStringLiteral("yasailmusic"));
-
+     qInstallMessageHandler(myMessageOutput);
     QScopedPointer<QQuickView> view(SailfishApp::createView());
+
+    QScopedPointer<SettingsWrapper> settings(new SettingsWrapper(view.data()));
+    view->rootContext()->setContextProperty("settings", settings.data());
 
     QScopedPointer<MediaPlayerWrapper> player(new MediaPlayerWrapper(view.data()));
     view->rootContext()->setContextProperty("player", player.data());
@@ -42,9 +81,11 @@ int main(int argc, char *argv[])
   //  QScopedPointer<SettingsWrapper> settings(new SettingsWrapper(view.data()));
    // view->rootContext()->setContextProperty("settings", settings.data());
 
-   // QScopedPointer<VkSDK> vksdk(new VkSDK(view.data()));
-   // view->rootContext()->setContextProperty("vksdk", vksdk.data());
+    QScopedPointer<yamussdk> Yamussdk(new yamussdk(view.data()));
 
+    view->rootContext()->setContextProperty("yamussdk", Yamussdk.data());
+   view->setSource(SailfishApp::pathTo("qml/YaSailMusic.qml"));
+   view->show();
 
-    return SailfishApp::main(argc, argv);
+   return application->exec();
 }

@@ -26,12 +26,42 @@ QVariant PlaylistModel::data(const QModelIndex &index, int role) const {
     }
 }
 
+bool PlaylistModel::setData(const QModelIndex &index, const QVariant &value, int role) {
+    if (!index.isValid()) return false;
+
+
+
+    switch (role) {
+    case DurationRole:
+        _audios.at(index.row())->setDuration(value.toInt());
+        break;
+
+    case TitleRole:
+       _audios.at(index.row())->setTitle(value.toString());
+        break;
+    case SubtitleRole:
+        _audios.at(index.row())->setArtist(value.toString());
+
+       // _audios.at(index.row())->set(value.toString());
+    case UrlRole:
+        _audios.at(index.row())->setUrl(value.toString());
+    default:
+        return false;
+    }
+
+
+    emit dataChanged(index, index, QVector<int>() << role);
+
+    return true;
+}
+
 QHash<int, QByteArray> PlaylistModel::roleNames() const {
     QHash<int, QByteArray> roles = QAbstractListModel::roleNames();
     roles[DurationRole] = "_duration";
     roles[TitleRole] = "_title";
     roles[SubtitleRole] = "_subtitle";
     roles[PlayingRole] = "_playing";
+    roles[UrlRole] = "_url";
     return roles;
 }
 
