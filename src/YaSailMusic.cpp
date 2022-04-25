@@ -2,8 +2,6 @@
 #include <QtQuick>
 #endif
 
-
-
 #include <QGuiApplication>
 #include <QStandardPaths>
 #include <QQmlContext>
@@ -11,11 +9,11 @@
 #include <QScopedPointer>
 #include <QtGlobal>
 
-#include </home/okabe2011/SailfishOS/mersdk/targets/SailfishOS-3.4.0.24-armv7hl.default/usr/include/sailfishapp/sailfishapp.h>
+#include <sailfishapp.h>
 
 //#include "filesaver.h"
 #include <stdio.h>
- #include <stdlib.h>
+#include <stdlib.h>
 #include <QScopedPointer>
 #include "mediaplayerwrapper.h"
 #include "settingswrapper.h"
@@ -47,11 +45,11 @@ void myMessageOutput(QtMsgType type, const QMessageLogContext &context, const QS
     }*/
 
     QFile fileOut("/home/nemo/yamus.txt");
-        if(fileOut.open(QIODevice::Append | QIODevice::Text))
-        {
-            fileOut.write(localMsg);
-            fileOut.flush();
-            fileOut.close();
+    if(fileOut.open(QIODevice::Append | QIODevice::Text))
+    {
+        fileOut.write(localMsg);
+        fileOut.flush();
+        fileOut.close();
     }
 }
 
@@ -69,7 +67,7 @@ int main(int argc, char *argv[])
     QScopedPointer<QGuiApplication> application(SailfishApp::application(argc, argv));
     application->setOrganizationName(QStringLiteral("org.ilyavysotsky"));
     application->setApplicationName(QStringLiteral("yasailmusic"));
-     qInstallMessageHandler(myMessageOutput);
+    qInstallMessageHandler(myMessageOutput);
     QScopedPointer<QQuickView> view(SailfishApp::createView());
 
     QScopedPointer<SettingsWrapper> settings(new SettingsWrapper(view.data()));
@@ -78,14 +76,14 @@ int main(int argc, char *argv[])
     QScopedPointer<MediaPlayerWrapper> player(new MediaPlayerWrapper(view.data()));
     view->rootContext()->setContextProperty("player", player.data());
 
-  //  QScopedPointer<SettingsWrapper> settings(new SettingsWrapper(view.data()));
-   // view->rootContext()->setContextProperty("settings", settings.data());
+    //  QScopedPointer<SettingsWrapper> settings(new SettingsWrapper(view.data()));
+    // view->rootContext()->setContextProperty("settings", settings.data());
 
     QScopedPointer<yamussdk> Yamussdk(new yamussdk(view.data()));
 
     view->rootContext()->setContextProperty("yamussdk", Yamussdk.data());
-   view->setSource(SailfishApp::pathTo("qml/YaSailMusic.qml"));
-   view->show();
+    view->setSource(SailfishApp::pathTo("qml/YaSailMusic.qml"));
+    view->show();
 
-   return application->exec();
+    return application->exec();
 }
