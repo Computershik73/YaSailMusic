@@ -28,9 +28,6 @@ QVariant PlaylistModel::data(const QModelIndex &index, int role) const {
 
 bool PlaylistModel::setData(const QModelIndex &index, const QVariant &value, int role) {
     if (!index.isValid()) return false;
-
-
-
     switch (role) {
     case DurationRole:
         _audios.at(index.row())->setDuration(value.toInt());
@@ -41,8 +38,6 @@ bool PlaylistModel::setData(const QModelIndex &index, const QVariant &value, int
         break;
     case SubtitleRole:
         _audios.at(index.row())->setArtist(value.toString());
-
-        // _audios.at(index.row())->set(value.toString());
     case UrlRole:
         _audios.at(index.row())->setUrl(value.toString());
     default:
