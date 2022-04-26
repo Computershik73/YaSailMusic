@@ -4,28 +4,33 @@
 <context>
     <name>LoginPage</name>
     <message>
-        <location filename="../qml/pages/LoginPage.qml" line="15"/>
+        <location filename="../qml/pages/LoginPage.qml" line="26"/>
         <source>Login:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/LoginPage.qml" line="31"/>
+        <location filename="../qml/pages/LoginPage.qml" line="40"/>
         <source>Password:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/LoginPage.qml" line="49"/>
+        <location filename="../qml/pages/LoginPage.qml" line="56"/>
         <source>Code:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/LoginPage.qml" line="71"/>
+        <location filename="../qml/pages/LoginPage.qml" line="76"/>
         <source>Login</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/LoginPage.qml" line="86"/>
+        <location filename="../qml/pages/LoginPage.qml" line="93"/>
         <source>Logged into Yandex Music</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/LoginPage.qml" line="97"/>
+        <source>Login fail!</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
