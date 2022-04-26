@@ -30,7 +30,7 @@ public slots:
    // void finished(QNetworkReply *reply);
 signals:
     void authorized(QString accessToken, int userId);
-    void error(QString errorCode, QString errorMessage);
+    void error(QString errorMessage);
 
    void coderequired();
 };

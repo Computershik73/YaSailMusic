@@ -43,14 +43,15 @@ QString Authorization::authUrl() {
  * @param url - URL for checking.
  */
 void Authorization::tryToGetAccessToken(QString name, QString password, QString code) {
-    //QStringList w=namepass.split(" ", QString::SkipEmptyParts);
+    Q_UNUSED(code);
+
     QUrl urll("https://mobileproxy.passport.yandex.net/2/bundle/mobile/start/?app_id=ru.yandex.mobile.music&uuid=70db875aae45466dbe932244c10a62c1&app_version_name=5.19&ifv=3713C13E-7B0B-4B33-8031-0BD00EC5DDEA&am_version_name=5.151&deviceidhash=11387416356007369345&manufacturer=Apple&deviceid=3713C13E-7B0B-4B33-8031-0BD00EC5DDEA&device_name=iPhone%20User&device_id=3713C13E-7B0B-4B33-8031-0BD00EC5DDEA&app_platform=iPhone&model=iPhone8%2C4");
     QUrlQuery query;
     query.addQueryItem("client_id", "c0ebe342af7d48fbbbfcf2d2eedb8f9e");
     query.addQueryItem("client_secret", "ad0a908f0aa341a182a37ecd75bc319e");
     query.addQueryItem("x_token_client_id", "c0ebe342af7d48fbbbfcf2d2eedb8f9e");
     query.addQueryItem("x_token_client_secret", "ad0a908f0aa341a182a37ecd75bc319e");
-    query.addQueryItem("сщщлшу", "VeWdmVclDCtn6ihuP1nt");
+    query.addQueryItem("cookie", "VeWdmVclDCtn6ihuP1nt");
     query.addQueryItem("login", name);
     query.addQueryItem("payment_auth_retpath", "yandexmusic://am/payment_auth");
     query.addQueryItem("display_language", "ru");
@@ -101,9 +102,12 @@ void Authorization::tryToGetAccessToken(QString name, QString password, QString 
     QByteArray dataaa2 = reply2->readAll();
     QString DataAsString2     = QString::fromUtf8(dataaa2);
     qDebug() << " 2nd step: " << DataAsString2;
-    //if (DataAsString.contains("error")) {
     QJsonDocument jDoc2 = QJsonDocument::fromJson(dataaa2);
     QJsonObject jObj2 = jDoc2.object();
+    if(jObj2.value("status").toString() == "error") {
+        emit error("Auth error");
+        return;
+    }
     QString x_token = jObj2.value("x_token").toString();
 
 
@@ -140,12 +144,9 @@ void Authorization::tryToGetAccessToken(QString name, QString password, QString 
 
         QString access_token = jObj3.value("access_token").toString();
         emit authorized(access_token, jObj3.value("uid").toInt());
+    } else {
+        qDebug() << dataaa3;
     }
-    // char TASK_TYPE_K[] = "taskType";
-    //reply->setProperty(TASK_TYPE_K, 0);
-
-
-
 }
 
 /*void Authorization::finished(QNetworkReply *reply) {
