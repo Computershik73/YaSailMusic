@@ -36,7 +36,7 @@ Page {
 
         contentHeight: mainPage.height
 
-        Item {
+        Row {
             id: column
             height: childrenRect.height
             width: childrenRect.width
@@ -62,9 +62,7 @@ Page {
                 text: player.isPlaying ? qsTr("Pause") : qsTr("Play")
                 font.pixelSize: Theme.fontSizeMedium
 
-                anchors{
-                    top: medbut.bottom
-                    topMargin: Theme.paddingSmall
+                anchors{  
                     verticalCenter: medbut.verticalCenter
                 }
             }
