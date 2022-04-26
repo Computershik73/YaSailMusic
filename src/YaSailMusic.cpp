@@ -19,40 +19,6 @@
 #include "settingswrapper.h"
 #include "../yamussdk.h"
 
-
-void myMessageOutput(QtMsgType type, const QMessageLogContext &context, const QString &msg)
-{
-    Q_UNUSED(type);
-    Q_UNUSED(context);
-    Q_UNUSED(msg);
-    QByteArray localMsg = msg.toLocal8Bit();
-    //switch (type) {
-    /*case QtDebugMsg:
-        fprintf(stderr, "Debug: %s (%s:%u, %s)\n", localMsg.constData(), context.file, context.line, context.function);
-        break;
-    case QtInfoMsg:
-        fprintf(stderr, "Info: %s (%s:%u, %s)\n", localMsg.constData(), context.file, context.line, context.function);
-        break;
-    case QtWarningMsg:
-        fprintf(stderr, "Warning: %s (%s:%u, %s)\n", localMsg.constData(), context.file, context.line, context.function);
-        break;
-    case QtCriticalMsg:
-        fprintf(stderr, "Critical: %s (%s:%u, %s)\n", localMsg.constData(), context.file, context.line, context.function);
-        break;
-    case QtFatalMsg:
-        fprintf(stderr, "Fatal: %s (%s:%u, %s)\n", localMsg.constData(), context.file, context.line, context.function);
-        abort();
-    }*/
-
-    QFile fileOut("/home/nemo/yamus.txt");
-    if(fileOut.open(QIODevice::Append | QIODevice::Text))
-    {
-        fileOut.write(localMsg);
-        fileOut.flush();
-        fileOut.close();
-    }
-}
-
 int main(int argc, char *argv[])
 {
     // SailfishApp::main() will display "qml/YandexMusic.qml", if you need more
@@ -67,7 +33,6 @@ int main(int argc, char *argv[])
     QScopedPointer<QGuiApplication> application(SailfishApp::application(argc, argv));
     application->setOrganizationName(QStringLiteral("org.ilyavysotsky"));
     application->setApplicationName(QStringLiteral("yasailmusic"));
-    qInstallMessageHandler(myMessageOutput);
     QScopedPointer<QQuickView> view(SailfishApp::createView());
 
     QScopedPointer<SettingsWrapper> settings(new SettingsWrapper(view.data()));
