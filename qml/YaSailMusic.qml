@@ -5,7 +5,6 @@ import "pages"
 ApplicationWindow {
     initialPage: {
         if (settings.accessToken()) {
-
             if (yamussdk.checkToken(settings.accessToken())) {
                 yamussdk.setAccessTocken(settings.accessToken())
                 yamussdk.setUserId(settings.userId())
@@ -19,7 +18,6 @@ ApplicationWindow {
             return Qt.createComponent(Qt.resolvedUrl("pages/LoginPage.qml"))
         }
     }
-
 
     cover: Qt.resolvedUrl("cover/CoverPage.qml")
     allowedOrientations: defaultAllowedOrientations

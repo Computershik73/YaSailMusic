@@ -45,110 +45,12 @@ void MediaPlayerWrapper::setPlaylist(QVariantList audios, int index) {
     _player->setPlaylist(_playlist);
     _player->playlist()->setCurrentIndex(0);
     _model->setPlayingIndex(0);
-    /*if (index != -1) {
-        _playlist->setCurrentIndex(index);
-        _model->setPlayingIndex(index);
-        _player->play();
-    }*/
 }
 
 
 
 
 void MediaPlayerWrapper::play() {
-    /* if (!(_audios.at(_player->playlist()->currentIndex())->url().contains("get-mp3"))) {
-        QUrl urll = _audios.at(_player->playlist()->currentIndex())->url();
-        QString trueurl = urll.toString().trimmed();
-        urll = QUrl(trueurl);
-        qDebug() << "QUrl: " << urll.toString();
-            QNetworkRequest request(urll);
-            request.setRawHeader("Authorization", ("OAuth "+(_settings->value("accessToken").toString())).toUtf8());
-            request.setRawHeader("X-Yandex-Music-Content-Type", "adult");
-            request.setRawHeader("X-Yandex-Music-Device", "os=iOS; os_version=12.2; manufacturer=Apple; model=iPhone8,4; clid=0; device_id=3713C13E-7B0B-4B33-8031-0BD00EC5DDEA; uuid=70db875aae45466dbe932244c10a62c1");
-            request.setRawHeader("User-Agent", "Maple/519 (iPhone; iOS 12.2; Scale/2.00)");
-            request.setRawHeader("X-Yandex-Music-Client", "YandexMusic/519");
-             request.setRawHeader("Ya-Client-User-Agent", "Maple/519 (iPhone; iOS 12.2; Scale/2.00)");
-              request.setRawHeader("Cookie", "_yasc=jIPYMjq4BwfgL8w1zfZDfFTNIxqinePslHoDbyatIhhu7A==");
-
-            QNetworkAccessManager* _manager = new QNetworkAccessManager(this);
-           // connect(_manager, SIGNAL(finished(QNetworkReply*)), this, SLOT(finished(QNetworkReply*)));
-            QNetworkReply *reply = _manager->get(request);
-            QEventLoop looppp;
-            QObject::connect(reply, SIGNAL(finished()) , &looppp, SLOT(quit()));
-            looppp.exec();
-             QByteArray dataaa = reply->readAll();
-             QString DataAsString     = QString::fromUtf8(dataaa);
-             qDebug() << DataAsString;
-             QJsonDocument jDoc = QJsonDocument::fromJson(dataaa);
-             QJsonObject jObj = jDoc.object();
-              QJsonArray res = jObj.value("result").toArray();
-              QJsonObject downloadInfos = res.at(0).toObject();
-              QString downloadInfoUrl = downloadInfos.value("downloadInfoUrl").toString();
-
-              QUrl url2(downloadInfoUrl);
-              QString trueurl2 = url2.toString().trimmed();
-              url2 = QUrl(trueurl2);
-                  qDebug() << "QUrl2: " << url2.toString();
-                  QNetworkRequest request2(url2);
-                  //request2.setRawHeader("Authorization", ("OAuth "+(_settings->value("accessToken").toString())).toUtf8());
-                  request2.setRawHeader("X-Yandex-Music-Content-Type", "adult");
-                  request2.setRawHeader("X-Yandex-Music-Device", "os=iOS; os_version=12.2; manufacturer=Apple; model=iPhone8,4; clid=0; device_id=3713C13E-7B0B-4B33-8031-0BD00EC5DDEA; uuid=70db875aae45466dbe932244c10a62c1");
-                  request2.setRawHeader("user-agent", "Maple/519 (iPhone; iOS 12.2; Scale/2.00)");
-                  request2.setRawHeader("x-yandex-music-client", "YandexMusic/519");
-                   request2.setRawHeader("ya-client-user-agent", "Maple/519 (iPhone; iOS 12.2; Scale/2.00)");
-                    request2.setRawHeader("cookie", "_yasc=jIPYMjq4BwfgL8w1zfZDfFTNIxqinePslHoDbyatIhhu7A==");
-
-
-                 // connect(_manager, SIGNAL(finished(QNetworkReply*)), this, SLOT(finished(QNetworkReply*)));
-                 QNetworkAccessManager* _manager2 = new QNetworkAccessManager(this);
-                    QNetworkReply *reply2 = _manager2->get(request2);
-                  QEventLoop looppp2;
-                  QObject::connect(reply2, SIGNAL(finished()) , &looppp2, SLOT(quit()));
-                  looppp2.exec();
-                   QByteArray dataaa2 = reply2->readAll();
-                   QString DataAsString2     = QString::fromUtf8(dataaa2);
-
-                   qDebug() << "result2: " << DataAsString2;
-                   QString host = "";
-                    QString path = "";
-                     QString ts = "";
-                      QString region = "";
-                       QString s = "";
-
-                   QXmlStreamReader reader(DataAsString2);
-                   while(!reader.atEnd() && !reader.hasError()) {
-                       if(reader.readNext() == QXmlStreamReader::StartElement) {
-                           if (reader.name() == "host") {
-                           host = reader.readElementText();
-                            }
-                           if (reader.name() == "path") {
-                           path =reader.readElementText();
-                            }
-                           if (reader.name() == "ts") {
-                           ts = reader.readElementText();
-                            }
-                           if (reader.name() == "region") {
-                           region = reader.readElementText();
-                            }
-                           if (reader.name() == "s") {
-                           s = reader.readElementText();
-                            }
-                       }
-
-                   }
-        qDebug() << " " << host << " " << path << ts << region << s << " ";
-        QString  sign  = QString(QCryptographicHash::hash((("XGRlBW9FXlekgbPrRHuSiA" + path.mid(1) + s).toUtf8()),QCryptographicHash::Md5).toHex());
-        QString finalUrl = "https://"+host+"/get-mp3/"+sign+"/"+ts+path;
-        //QString  sign = md5(("XGRlBW9FXlekgbPrRHuSiA" + path.left(1) + s).toUtf8()).hexdigest();
-        _audios.at(_player->playlist()->currentIndex())->setUrl(finalUrl);
-        int cur = _player->playlist()->currentIndex();
-        _player->playlist()->removeMedia(cur);
-        _player->playlist()->insertMedia(cur, QUrl(finalUrl));
-        //_player->playlist()->setCurrentIndex(cur);
-        QModelIndex index = _model->index(_player->playlist()->currentIndex());
-        _model->setData(index, _audios.at(_player->playlist()->currentIndex())->url(), _model->UrlRole);
-
-    }*/
     _player->play();
 }
 
@@ -220,20 +122,6 @@ qint64 MediaPlayerWrapper::audioId() {
 }
 
 void MediaPlayerWrapper::_mediaChanged(QMediaContent content) {
-    /*if (!((_player==NULL) || (_player->playlist()==NULL) || (content==NULL))) {
-    if ((repeat()) || (_player->playlist()->currentIndex()>=_audios.size()-1)) {
-        _player->playlist()->setCurrentIndex(_currIndex);
-        emit mediaChanged();
-    }
-    else {
-        if (_shuffle && _shuffleNow) {
-            _shuffleNow = false;
-            _player->playlist()->setCurrentIndex(qrand() % _audios.size());
-        } else _shuffleNow = true;
-        _currIndex = _player->playlist()->currentIndex();
-        emit mediaChanged();
-    }
-    }*/
     setQueue(_audios.at(_player->playlist()->currentIndex())->id());
     if (!(_audios.at(_player->playlist()->currentIndex())->url().contains("get-mp3"))) {
         QUrl urll = _audios.at(_player->playlist()->currentIndex())->url();
