@@ -37,9 +37,23 @@
 <context>
     <name>MainPage</name>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="28"/>
-        <location filename="../qml/pages/MainPage.qml" line="67"/>
-        <source>Моя волна</source>
+        <location filename="../qml/pages/MainPage.qml" line="20"/>
+        <source>View playlist</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/MainPage.qml" line="27"/>
+        <source>My wave</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/MainPage.qml" line="54"/>
+        <source>Play</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/MainPage.qml" line="54"/>
+        <source>Pause</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
