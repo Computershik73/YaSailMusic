@@ -23,6 +23,10 @@
         <source>Logged into Yandex Music</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Login fail!</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>MainPage</name>

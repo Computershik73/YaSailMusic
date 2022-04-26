@@ -34,6 +34,7 @@ DISTFILES += \
     YaSailMusic.desktop \
     YaSailMusic.png \
     qml/YaSailMusic.qml \
+    qml/components/Banner.qml \
     qml/cover/CoverPage.qml \
     qml/pages/LoginPage.qml \
     qml/pages/MainPage.qml \
