@@ -14,6 +14,8 @@ void Audios::get() {
     QUrlQuery query;
     query.addQueryItem("settings2", "true");
     _api->makeApiGetRequest("/rotor/station/user:onyourwave/tracks", query, ApiRequest::AUDIO_GET);
+
+    connect(_api, &ApiRequest::gotResponse, this, &Audios::getFinished);
 }
 
 void Audios::getRecommendations(int count) {

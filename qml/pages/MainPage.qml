@@ -15,6 +15,13 @@ Page {
             right: parent.right
         }
 
+        BusyIndicator {
+            id: busyIndicator
+            running: visible
+            visible: true
+            anchors.centerIn: parent
+        }
+
         PullDownMenu {
             MenuItem {
                 text: qsTr("View playlist")
@@ -35,6 +42,7 @@ Page {
             width: childrenRect.width
 
             anchors.centerIn: parent
+            visible: !busyIndicator.visible
 
             MediaButton {
                 id: medbut
@@ -74,11 +82,15 @@ Page {
         }
     }
 
+    Connections{
+        target: yamussdk.audios
+        onGetFinished: busyIndicator.visible = false
+    }
+
     Connections {
         target: yamussdk
         onGotUserAudios: {
             player.setPlaylist(audios, -1)
         }
-
     }
 }
