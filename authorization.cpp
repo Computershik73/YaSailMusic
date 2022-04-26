@@ -56,9 +56,9 @@ void Authorization::doAuthFinished()
         QJsonDocument doc = QJsonDocument::fromJson(info);
         QJsonObject jo = doc.object();
         if(jo.contains("access_token")) {
-            QString userId = jo.value("uid").toString();
-            QString accessToken = jo.value("access_token").toString();
-            emit authorized(accessToken, userId);
+            m_userId = jo.value("uid").toString();
+            m_token = jo.value("access_token").toString();
+            emit authorized(m_token, m_userId);
         } else {
             emit tr("Strange response");
         }
