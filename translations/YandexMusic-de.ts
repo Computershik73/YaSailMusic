@@ -31,7 +31,19 @@
 <context>
     <name>MainPage</name>
     <message>
-        <source>Моя волна</source>
+        <source>My wave</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>View playlist</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Play</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pause</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

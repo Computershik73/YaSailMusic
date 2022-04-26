@@ -39,8 +39,8 @@ DISTFILES += \
     qml/pages/LoginPage.qml \
     qml/pages/MainPage.qml \
     qml/pages/MediaButton.qml \
-    qml/pages/SecondPage.qml \
     qml/img/YaSailMusic.png \
+    qml/pages/PlaylistPage.qml \
     rpm/YaSailMusic.spec
     translations/*.ts
 
