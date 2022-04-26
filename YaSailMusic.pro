@@ -39,11 +39,8 @@ DISTFILES += \
     qml/pages/MainPage.qml \
     qml/pages/MediaButton.qml \
     qml/pages/SecondPage.qml \
-    rpm/YaSailMusic.changes.in \
-    rpm/YaSailMusic.changes.run.in \
-    rpm/YaSailMusic.spec \
-    rpm/YaSailMusic.yaml0 \
-    rpm/YandexMusic.spec \
+    qml/img/YaSailMusic.png \
+    rpm/YaSailMusic.spec
     translations/*.ts
 
 SAILFISHAPP_ICONS = 86x86 108x108 128x128 172x172
