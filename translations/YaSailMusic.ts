@@ -19,12 +19,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/LoginPage.qml" line="69"/>
+        <location filename="../qml/pages/LoginPage.qml" line="71"/>
         <source>Login</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/LoginPage.qml" line="87"/>
+        <location filename="../qml/pages/LoginPage.qml" line="86"/>
         <source>Logged into Yandex Music</source>
         <translation type="unfinished"></translation>
     </message>

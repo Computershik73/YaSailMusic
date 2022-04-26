@@ -63,15 +63,14 @@ Page {
 
     Button {
         id: enterButton
-        anchors.top: textField3.bottom
-        anchors.left: parent.left
-        anchors.right: parent.right
+        anchors{
+            verticalCenter: parent.verticalCenter
+            bottom: parent.bottom
+        }
+
         text: qsTr("Login")
         onClicked: {
             yamussdk.auth.tryToGetAccessToken(textField1.text, textField2.text, textField3.text)
-            //textField1.text = ""
-            //textField2.text = ""
-            //enterButton.enabled = false
         }
     }
 
@@ -87,8 +86,6 @@ Page {
             loginNotification.previewBody = qsTr("Logged into Yandex Music")
             loginNotification.publish()
         }
-
-
     }
 }
 
