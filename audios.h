@@ -13,6 +13,9 @@ public:
     Q_INVOKABLE void get();
     Q_INVOKABLE void getRecommendations(int count = 50);
     Q_INVOKABLE void search(QString query);
+
+signals:
+    void getFinished();
 };
 
 #endif // AUDIOS_H

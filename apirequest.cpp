@@ -19,8 +19,6 @@ ApiRequest::~ApiRequest() {
 
 void ApiRequest::makeApiGetRequest(const QString &method, const QUrlQuery &q, TaskType type) {
     QUrlQuery query = q;
-    //query.addQueryItem("access_token", _accessToken);
-    //query.addQueryItem("v", API_VERSION);
     QUrl url(API_URL + method);
     url.setQuery(query.query());
     qDebug() << "URL: " << url.toString();
@@ -30,8 +28,8 @@ void ApiRequest::makeApiGetRequest(const QString &method, const QUrlQuery &q, Ta
     request.setRawHeader("X-Yandex-Music-Device", "os=iOS; os_version=12.2; manufacturer=Apple; model=iPhone8,4; clid=0; device_id=3713C13E-7B0B-4B33-8031-0BD00EC5DDEA; uuid=70db875aae45466dbe932244c10a62c1");
     request.setRawHeader("User-Agent", "Maple/519 (iPhone; iOS 12.2; Scale/2.00)");
     request.setRawHeader("X-Yandex-Music-Client", "YandexMusic/519");
-     request.setRawHeader("Ya-Client-User-Agent", "Maple/519 (iPhone; iOS 12.2; Scale/2.00)");
-      request.setRawHeader("Cookie", "_yasc=jIPYMjq4BwfgL8w1zfZDfFTNIxqinePslHoDbyatIhhu7A==");
+    request.setRawHeader("Ya-Client-User-Agent", "Maple/519 (iPhone; iOS 12.2; Scale/2.00)");
+    request.setRawHeader("Cookie", "_yasc=jIPYMjq4BwfgL8w1zfZDfFTNIxqinePslHoDbyatIhhu7A==");
     QNetworkReply *reply = _manager->get(request);
     reply->setProperty(TASK_TYPE_KEY, type);
 }
@@ -59,7 +57,7 @@ void ApiRequest::finished(QNetworkReply *reply) {
         } else if (jObj.contains("result")) {
             QJsonValue jVal = jObj.value("result");
             QString strFromObj = QJsonDocument(jObj).toJson(QJsonDocument::Compact).toStdString().c_str();
-                qDebug() << "Reply: " << strFromObj << "\n";
+            qDebug() << "Reply: " << strFromObj << "\n";
             emit gotResponse(jVal, taskType);
         } else if (jObj.contains("error")) {
             qDebug() << "Error in API request!";

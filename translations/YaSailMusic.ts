@@ -37,35 +37,35 @@
 <context>
     <name>MainPage</name>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="20"/>
+        <location filename="../qml/pages/MainPage.qml" line="27"/>
         <source>View playlist</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="27"/>
+        <location filename="../qml/pages/MainPage.qml" line="34"/>
         <source>My wave</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="54"/>
+        <location filename="../qml/pages/MainPage.qml" line="62"/>
         <source>Play</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="54"/>
+        <location filename="../qml/pages/MainPage.qml" line="62"/>
         <source>Pause</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
-    <name>SecondPage</name>
+    <name>PlaylistPage</name>
     <message>
-        <location filename="../qml/pages/SecondPage.qml" line="15"/>
+        <location filename="../qml/pages/PlaylistPage.qml" line="15"/>
         <source>Nested Page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/SecondPage.qml" line="22"/>
+        <location filename="../qml/pages/PlaylistPage.qml" line="22"/>
         <source>Item</source>
         <translation type="unfinished"></translation>
     </message>

@@ -48,14 +48,14 @@
     </message>
 </context>
 <context>
-    <name>SecondPage</name>
+    <name>PlaylistPage</name>
     <message>
         <source>Nested Page</source>
-        <translation>Unterseite</translation>
+        <translation type="unfinished">Unterseite</translation>
     </message>
     <message>
         <source>Item</source>
-        <translation>Element</translation>
+        <translation type="unfinished">Element</translation>
     </message>
 </context>
 </TS>
