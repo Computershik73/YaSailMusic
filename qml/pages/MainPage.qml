@@ -9,11 +9,15 @@ Page {
     SilicaFlickable {
         id: mainView
         anchors.fill: parent
+
+
         anchors{
             top: header.bottom
             left: parent.left
             right: parent.right
         }
+
+
 
         BusyIndicator {
             id: busyIndicator
@@ -23,6 +27,10 @@ Page {
         }
 
         PullDownMenu {
+            MenuItem {
+                text: qsTr("Search")
+                onClicked: topsearchField.visible = true
+            }
             MenuItem {
                 text: qsTr("View playlist")
                 onClicked: pageStack.animatorPush(Qt.resolvedUrl("PlaylistPage.qml"))
@@ -34,8 +42,34 @@ Page {
             title: qsTr("My wave")
         }
 
-        contentHeight: mainPage.height
+        SearchField {
+            id: topsearchField
+            width: parent.width
+            placeholderText: qsTr("Search audio...")
+            visible: false
+            EnterKey.enabled: true
+            onTextChanged: {
+                if (text.length !== 0) {
+                    busyIndicator.running = true
+                    //search
+                }
+                else {
+                    busyIndicator.running = true
+                    visible = false
+                    focus = false
 
+                }
+            }
+        }
+
+        contentHeight: mainPage.height
+        Row {
+            id: searchrow
+            height: childrenRect.height
+            width: parent.width
+            visible: false
+
+        }
         Row {
             id: column
             height: childrenRect.height

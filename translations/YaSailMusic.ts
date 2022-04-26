@@ -37,22 +37,32 @@
 <context>
     <name>MainPage</name>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="27"/>
+        <location filename="../qml/pages/MainPage.qml" line="31"/>
+        <source>Search</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/MainPage.qml" line="35"/>
         <source>View playlist</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="34"/>
+        <location filename="../qml/pages/MainPage.qml" line="42"/>
         <source>My wave</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="62"/>
+        <location filename="../qml/pages/MainPage.qml" line="48"/>
+        <source>Search audio...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/MainPage.qml" line="96"/>
         <source>Play</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="62"/>
+        <location filename="../qml/pages/MainPage.qml" line="96"/>
         <source>Pause</source>
         <translation type="unfinished"></translation>
     </message>
