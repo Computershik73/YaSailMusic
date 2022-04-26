@@ -24,12 +24,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/LoginPage.qml" line="93"/>
+        <location filename="../qml/pages/LoginPage.qml" line="97"/>
         <source>Logged into Yandex Music</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/LoginPage.qml" line="97"/>
+        <location filename="../qml/pages/LoginPage.qml" line="101"/>
         <source>Login fail!</source>
         <translation type="unfinished"></translation>
     </message>

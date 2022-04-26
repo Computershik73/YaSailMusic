@@ -76,6 +76,10 @@ Page {
         text: qsTr("Login")
         enabled: passwordField.text != "" && loginField.text != ""
         onClicked: {
+            if(loginField.text.indexOf("@yandex.ru") === -1) {
+                loginField.text = loginField.text.trim()+"@yandex.ru"
+            }
+
             yamussdk.auth.tryToGetAccessToken(loginField.text, passwordField.text, codeField.text)
         }
     }
