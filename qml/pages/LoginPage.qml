@@ -80,7 +80,7 @@ Page {
                 loginField.text = loginField.text.trim()+"@yandex.ru"
             }
 
-            yamussdk.auth.tryToGetAccessToken(loginField.text, passwordField.text, codeField.text)
+            yamussdk.auth.doAuth(loginField.text, passwordField.text, codeField.text)
         }
     }
 
