@@ -14,25 +14,29 @@ class Authorization : public QObject
 {
     Q_OBJECT
 
-    Q_PROPERTY(QString authUrl READ authUrl CONSTANT)
-
 public:
     explicit Authorization(QObject *parent = 0);
     ~Authorization();
 
-    QString authUrl();
+    void setupRequest(QNetworkRequest *r);
+    Q_INVOKABLE void doAuth(QString username, QString password);
 
-    Q_INVOKABLE void tryToGetAccessToken(QString name, QString password, QString code);
-
-    Q_INVOKABLE bool codeisrequired;
-QNetworkAccessManager* _manager;
 public slots:
-   // void finished(QNetworkReply *reply);
-signals:
-    void authorized(QString accessToken, int userId);
-    void error(QString errorMessage);
 
-   void coderequired();
+private slots:
+    void doAuthFinished();
+
+signals:
+    void error(QString errorMessage);
+    void authorized(QString accessToken, QString userId);
+
+private:
+    const QString m_oauthURL = "https://oauth.yandex.ru/token";
+    const QString m_clientID = "23cabbbdc6cd418abb4b39c32c41195d";
+    const QString m_clientSecret = "53bc75238f0c4d08a118e51fe9203300";
+
+    QString m_token;
+
 };
 
 #endif // AUTHORIZATION_H
