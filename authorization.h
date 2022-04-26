@@ -36,7 +36,7 @@ private:
     const QString m_clientSecret = "53bc75238f0c4d08a118e51fe9203300";
 
     QString m_token;
-
+    QString m_userId;
 };
 
 #endif // AUTHORIZATION_H
