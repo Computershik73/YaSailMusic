@@ -89,30 +89,29 @@ bool PlaylistModel::insertRows(int position, int rows, Track *item, const QModel
 bool PlaylistModel::removeRows(int position, int rows, const QModelIndex &index)
 {
     Q_UNUSED(index);
-     if((position+rows) > m_playList.count())
-     {
-         return false;
-     }
+    if((position+rows) > m_playList.count())
+    {
+        return false;
+    }
 
-     beginRemoveRows(QModelIndex(), position, position+rows-1);
-     for (int row = 0; row < rows; ++row) {
-         m_playList.removeAt(position);
-     }
-     endRemoveRows();
-     return true;
+    beginRemoveRows(QModelIndex(), position, position+rows-1);
+    for (int row = 0; row < rows; ++row) {
+        m_playList.removeAt(position);
+    }
+    endRemoveRows();
+    return true;
 }
 
 
 void PlaylistModel::setCurrentIndex(int currentIndex)
 {
-    qDebug() << m_currentIndex;
-
     if(currentIndex >= 0 && currentIndex < m_playList.count() && currentIndex != m_currentIndex)
     {
         m_currentIndex = currentIndex;
         emit currentIndexChanged(m_currentIndex);
 
         if(m_currentIndex == m_playList.count()-1) {
+            qDebug() << "Load new tracks!";
             loadMyWave();
         }
     }
@@ -130,21 +129,24 @@ void PlaylistModel::loadMyWave()
     if(m_playList.count() > 0) {
         query.addQueryItem("queue", QString::number(m_playList.at(m_playList.count()-1)->trackId));
     }
-    m_api->makeApiGetRequest("/rotor/station/user:onyourwave/tracks", query, ApiRequest::AUDIO_GET);
+    m_api->makeApiGetRequest("/rotor/station/user:onyourwave/tracks", query);
     connect(m_api, &ApiRequest::gotResponse, this, &PlaylistModel::getWaveFinished);
 }
 
-void PlaylistModel::getWaveFinished(const QJsonValue &value, ApiRequest::TaskType type)
+void PlaylistModel::getWaveFinished(const QJsonValue &value)
 {
-    if(type != ApiRequest::TaskType::AUDIO_GET) {
+    if(value == m_oldValue) {
+        /*Sometimes Yandex return data twice*/
         return;
+    } else {
+        m_oldValue = value;
     }
 
-   QJsonObject qjo = value.toObject();
-   QJsonArray tracks = qjo["sequence"].toArray();
-   beginInsertRows(QModelIndex(), m_playList.count()-1, m_playList.count()-1+tracks.count());
+    QJsonObject qjo = value.toObject();
+    QJsonArray tracks = qjo["sequence"].toArray();
+    beginInsertRows(QModelIndex(), m_playList.count(), m_playList.count()+tracks.count()-1);
 
-   foreach (const QJsonValue & value, tracks) {
+    foreach (const QJsonValue & value, tracks) {
         QJsonObject trackObject = value.toObject();
         Track* newTrack = new Track;
         newTrack->trackId = trackObject["track"].toObject()["id"].toString().toInt();
@@ -167,7 +169,7 @@ void PlaylistModel::getWaveFinished(const QJsonValue &value, ApiRequest::TaskTyp
         if(!newTrack->albumName.isEmpty() && !newTrack->trackName.isEmpty()) {
             m_playList.push_back(newTrack);
         }
-   }
-   endInsertRows();
-   m_loading = false;
+    }
+    endInsertRows();
+    m_loading = false;
 }

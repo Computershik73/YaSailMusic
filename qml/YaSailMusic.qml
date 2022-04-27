@@ -11,8 +11,7 @@ import "pages"
 ApplicationWindow {
     id: root
     initialPage: {
-        if (yamussdk.auth.checkToken()) {
-            yamussdk.loadAuthdata()
+        if (auth.checkToken()) {
             return Qt.createComponent(Qt.resolvedUrl("pages/MainPage.qml"))
         } else {
             return Qt.createComponent(Qt.resolvedUrl("pages/LoginPage.qml"))
