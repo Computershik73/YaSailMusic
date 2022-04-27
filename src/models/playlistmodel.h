@@ -48,6 +48,9 @@ signals:
     void loadFirstDataFinished();
     void currentIndexChanged(int currentIndex);
 
+public slots:
+    QVariant get(const int idx);
+
 private slots:
     void getWaveFinished(const QJsonValue &value);
 

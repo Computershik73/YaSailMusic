@@ -122,6 +122,33 @@ void PlaylistModel::setCurrentIndex(int currentIndex)
     }
 }
 
+QVariant PlaylistModel::get(const int idx)
+{
+    if(idx >= m_playList.size())
+    {
+        return QVariant();
+    }
+
+    QMap<QString, QVariant> itemData;
+    Track* item = m_playList.at(idx);
+
+    itemData.insert("trackId",item->trackId);
+    itemData.insert("artistId",item->artistId);
+    itemData.insert("artistName",item->artistName);
+    itemData.insert("artistCover",item->artistCover);
+    itemData.insert("albumCoverId",item->albumCoverId);
+    itemData.insert("albumName",item->albumName);
+    itemData.insert("albumCover", item->albumCover);
+    itemData.insert("trackName", item->trackName);
+    itemData.insert("type", item->type);
+    itemData.insert("duration", item->duration);
+    itemData.insert("storageDir",item->storageDir);
+    itemData.insert("liked",item->liked);
+    itemData.insert("fileUrl",item->fileUrl);
+
+    return QVariant(itemData);
+}
+
 void PlaylistModel::loadMyWave()
 {
     if(m_loading) {
