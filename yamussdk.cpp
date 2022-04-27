@@ -20,7 +20,6 @@ yamussdk::~yamussdk() {
 
 void yamussdk::loadAuthdata() {
     QSettings settings;
-    _api->setAccessToken(settings.value("accessToken").toString());
     _userId = settings.value("userId").toInt();
 }
 

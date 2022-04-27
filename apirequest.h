@@ -68,8 +68,6 @@ public:
     void makeApiGetRequest(const QString &method, const QUrlQuery &query, TaskType type);
     void makePostRequest(const QUrl &url, const QUrlQuery &query, QHttpMultiPart *multipart, TaskType type);
 
-    void setAccessToken(const QString &token);
-
 signals:
     void gotResponse(const QJsonValue &value, ApiRequest::TaskType type);
 
@@ -78,9 +76,7 @@ public slots:
 
 private:
     const QString API_URL = "https://api.music.yandex.net";
-   // const QString API_VERSION = "5.153";
 
-    QString _accessToken;
     QNetworkAccessManager *_manager;
 };
 

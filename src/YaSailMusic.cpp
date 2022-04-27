@@ -14,7 +14,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <QScopedPointer>
-#include "settingswrapper.h"
 #include "../yamussdk.h"
 
 #include "models/playlistmodel.h"
