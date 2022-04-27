@@ -10,15 +10,6 @@ Page {
         id: mainView
         anchors.fill: parent
 
-
-        anchors{
-            top: header.bottom
-            left: parent.left
-            right: parent.right
-        }
-
-
-
         BusyIndicator {
             id: busyIndicator
             running: visible
@@ -80,20 +71,19 @@ Page {
 
             MediaButton {
                 id: medbut
-                source: player.isPlaying ? "image://theme/icon-cover-pause" : "image://theme/icon-cover-play"
+                source: rootAudio.isPlaying ? "image://theme/icon-cover-pause" : "image://theme/icon-cover-play"
                 mouseArea.onClicked: {
-
-                    if (player.isPlaying) {
-                        player.pause()
+                    if (rootAudio.isPlaying) {
+                        rootAudio.pause()
                     } else {
-                        player.play()
+                        rootAudio.play()
                     }
                 }
             }
 
             Label {
                 id: mediaButtLabel
-                text: player.isPlaying ? qsTr("Pause") : qsTr("Play")
+                text: rootAudio.isPlaying ? qsTr("Pause") : qsTr("Play")
                 font.pixelSize: Theme.fontSizeMedium
 
                 anchors{  
@@ -104,25 +94,11 @@ Page {
     }
 
     Component.onCompleted: {
-        yamussdk.audios.get()
-    }
-
-    Connections {
-        target: player
-        onMediaChanged: {
-            player.model.setPlayingIndex(player.currentIndex);
-        }
+        playListModel.loadMyWave();
     }
 
     Connections{
-        target: yamussdk.audios
-        onGetFinished: busyIndicator.visible = false
-    }
-
-    Connections {
-        target: yamussdk
-        onGotUserAudios: {
-            player.setPlaylist(audios, -1)
-        }
+        target: playListModel
+        onLoadFirstDataFinished: busyIndicator.visible = false
     }
 }

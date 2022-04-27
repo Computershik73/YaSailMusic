@@ -11,13 +11,13 @@
 
 #include <sailfishapp.h>
 
-//#include "filesaver.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <QScopedPointer>
-#include "mediaplayerwrapper.h"
 #include "settingswrapper.h"
 #include "../yamussdk.h"
+
+#include "models/playlistmodel.h"
 
 int main(int argc, char *argv[])
 {
@@ -35,14 +35,10 @@ int main(int argc, char *argv[])
     application->setApplicationName(QStringLiteral("yasailmusic"));
     QScopedPointer<QQuickView> view(SailfishApp::createView());
 
+    qmlRegisterType<PlaylistModel>("org.ilyavysotsky.yasailmusic",1,0,"PlaylistModel");
+
     QScopedPointer<SettingsWrapper> settings(new SettingsWrapper(view.data()));
     view->rootContext()->setContextProperty("settings", settings.data());
-
-    QScopedPointer<MediaPlayerWrapper> player(new MediaPlayerWrapper(view.data()));
-    view->rootContext()->setContextProperty("player", player.data());
-
-    //  QScopedPointer<SettingsWrapper> settings(new SettingsWrapper(view.data()));
-    // view->rootContext()->setContextProperty("settings", settings.data());
 
     QScopedPointer<yamussdk> Yamussdk(new yamussdk(view.data()));
 
