@@ -23,10 +23,17 @@ ApplicationWindow {
 
     PlaylistModel{
         id: playListModel
+        onCurrentIndexChanged: {
+            rootAudio.source = "file://" + playListModel.get(currentIndex).fileUrl;
+            rootAudio.play();
+        }
     }
 
     MediaPlayer{
         id: rootAudio
+        onStopped: {
+            ++playListModel.currentIndex
+        }
     }
 
     MprisPlayer {
