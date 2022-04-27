@@ -25,7 +25,6 @@ SOURCES += \
     authorization.cpp \
     requestbase.cpp \
     src/YaSailMusic.cpp \
-    src/settingswrapper.cpp \
     src/models/playlistmodel.cpp \
     yamussdk.cpp
 
@@ -62,5 +61,4 @@ HEADERS += \
     authorization.h \
     src/models/playlistmodel.h \
     requestbase.h \
-    src/settingswrapper.h \
     yamussdk.h

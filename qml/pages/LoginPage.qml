@@ -87,11 +87,7 @@ Page {
     Connections {
         target: yamussdk.auth
         onAuthorized: {
-            settings.setAccessToken(accessToken)
-            settings.setUserId(userId)
-
-            yamussdk.setAccessTocken(accessToken)
-            yamussdk.setUserId(userId)
+            yamussdk.loadAuthdata()
 
             pageContainer.replace(Qt.resolvedUrl("MainPage.qml"))
             loginNotification.previewBody = qsTr("Logged into Yandex Music")
