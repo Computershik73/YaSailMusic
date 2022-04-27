@@ -19,8 +19,8 @@ CONFIG += sailfishapp_i18n
 QT += multimedia core gui
 
 SOURCES += \
-    apirequest.cpp \
-    authorization.cpp \
+    src/apirequest.cpp \
+    src/authorization.cpp \
     src/YaSailMusic.cpp \
     src/models/playlistmodel.cpp
 
@@ -51,6 +51,6 @@ CONFIG += sailfishapp_i18n
 TRANSLATIONS += translations/YandexMusic-de.ts
 
 HEADERS += \
-    apirequest.h \
-    authorization.h \
+    src/apirequest.h \
+    src/authorization.h \
     src/models/playlistmodel.h
