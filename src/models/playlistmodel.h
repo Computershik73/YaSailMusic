@@ -10,6 +10,7 @@ class PlaylistModel : public QAbstractListModel
 {
     Q_OBJECT
     Q_PROPERTY(int currentIndex READ currentIndex WRITE setCurrentIndex NOTIFY currentIndexChanged)
+
     struct Track{
         int trackId;
         int artistId;
@@ -50,6 +51,7 @@ private slots:
     void getWaveFinished(const QJsonValue &value, ApiRequest::TaskType type);
 
 private:
+    bool m_loading;
     int m_currentIndex;
     QList<Track*> m_playList;
     QHash<int,QByteArray> m_hash;

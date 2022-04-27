@@ -1,4 +1,3 @@
-
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>
@@ -11,7 +10,9 @@ const char TASK_TYPE_KEY[] = "taskType";
 
 ApiRequest::ApiRequest(QObject *parent) : QObject(parent) {
     _manager = new QNetworkAccessManager(this);
-    connect(_manager, SIGNAL(finished(QNetworkReply*)), this, SLOT(finished(QNetworkReply*)));
+    connect(_manager, &QNetworkAccessManager::finished, this, &ApiRequest::finished);
+
+    qDebug() << Q_FUNC_INFO;
 }
 
 ApiRequest::~ApiRequest() {
@@ -47,21 +48,19 @@ void ApiRequest::makePostRequest(const QUrl &u, const QUrlQuery &query, QHttpMul
 }
 
 void ApiRequest::finished(QNetworkReply *reply) {
+    qDebug() << Q_FUNC_INFO;
+
     const QVariant type = reply->property(TASK_TYPE_KEY);
     if (type.isValid()) {
         const TaskType taskType = type.value<TaskType>();
         QJsonDocument jDoc = QJsonDocument::fromJson(reply->readAll());
         QJsonObject jObj = jDoc.object();
-        if (taskType == PHOTOS_UPLOAD_TO_SERVER) {
-            emit gotResponse(jObj, taskType);
-        } else if (jObj.contains("result")) {
+        if (jObj.contains("result")) {
             QJsonValue jVal = jObj.value("result");
             QString strFromObj = QJsonDocument(jObj).toJson(QJsonDocument::Compact).toStdString().c_str();
-            qDebug() << "Reply: " << strFromObj << "\n";
             emit gotResponse(jVal, taskType);
-        } else if (jObj.contains("error")) {
+        } else {
             qDebug() << "Error in API request!";
         }
     }
-    reply->deleteLater();
 }

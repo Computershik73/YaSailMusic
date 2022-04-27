@@ -21,9 +21,7 @@ QT += multimedia core gui
 SOURCES += \
     apirequest.cpp \
     audio.cpp \
-    audios.cpp \
     authorization.cpp \
-    requestbase.cpp \
     src/YaSailMusic.cpp \
     src/models/playlistmodel.cpp \
     yamussdk.cpp
@@ -57,8 +55,6 @@ TRANSLATIONS += translations/YandexMusic-de.ts
 HEADERS += \
     apirequest.h \
     audio.h \
-    audios.h \
     authorization.h \
     src/models/playlistmodel.h \
-    requestbase.h \
     yamussdk.h
