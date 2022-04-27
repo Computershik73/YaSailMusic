@@ -63,7 +63,6 @@ public slots:
     void gotResponse(const QJsonValue &value, ApiRequest::TaskType type);
 
 private:
-    QString _accessToken;
     int _userId;
 
     ApiRequest *_api;
