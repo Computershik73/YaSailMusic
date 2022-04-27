@@ -11,16 +11,9 @@ import "pages"
 ApplicationWindow {
     id: root
     initialPage: {
-        if (settings.accessToken()) {
-            if (yamussdk.checkToken(settings.accessToken())) {
-                yamussdk.setAccessTocken(settings.accessToken())
-                yamussdk.setUserId(settings.userId())
+        if (yamussdk.auth.checkToken()) {
+            yamussdk.loadAuthdata()
             return Qt.createComponent(Qt.resolvedUrl("pages/MainPage.qml"))
-            } else {
-            settings.removeAccessToken()
-            settings.removeUserId()
-            return Qt.createComponent(Qt.resolvedUrl("pages/LoginPage.qml"))
-            }
         } else {
             return Qt.createComponent(Qt.resolvedUrl("pages/LoginPage.qml"))
         }

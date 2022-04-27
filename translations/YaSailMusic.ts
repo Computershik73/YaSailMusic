@@ -24,12 +24,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/LoginPage.qml" line="97"/>
+        <location filename="../qml/pages/LoginPage.qml" line="93"/>
         <source>Logged into Yandex Music</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/LoginPage.qml" line="101"/>
+        <location filename="../qml/pages/LoginPage.qml" line="97"/>
         <source>Login fail!</source>
         <translation type="unfinished"></translation>
     </message>
@@ -78,12 +78,12 @@
 <context>
     <name>YaSailMusic</name>
     <message>
-        <location filename="../qml/YaSailMusic.qml" line="43"/>
+        <location filename="../qml/YaSailMusic.qml" line="36"/>
         <source>Loading</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/YaSailMusic.qml" line="44"/>
+        <location filename="../qml/YaSailMusic.qml" line="37"/>
         <source>tags...</source>
         <translation type="unfinished"></translation>
     </message>

@@ -20,6 +20,7 @@ public:
 
     void setupRequest(QNetworkRequest *r);
     Q_INVOKABLE void doAuth(QString username, QString password);
+    Q_INVOKABLE bool checkToken();
 
 public slots:
 
@@ -37,6 +38,7 @@ private:
 
     QString m_token;
     QString m_userId;
+    QDateTime m_ttl;
 };
 
 #endif // AUTHORIZATION_H

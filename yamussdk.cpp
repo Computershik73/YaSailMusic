@@ -18,17 +18,10 @@ yamussdk::~yamussdk() {
     delete _auth;
 }
 
-void yamussdk::setAccessTocken(QString value) {
-    _api->setAccessToken(value);
-}
-
-bool yamussdk::checkToken(QString token) {
-    Q_UNUSED(token);
-    return true;
-}
-
-void yamussdk::setUserId(int value) {
-    _userId = value;
+void yamussdk::loadAuthdata() {
+    QSettings settings;
+    _api->setAccessToken(settings.value("accessToken").toString());
+    _userId = settings.value("userId").toInt();
 }
 
 Authorization *yamussdk::auth() const {

@@ -34,11 +34,9 @@ int main(int argc, char *argv[])
     application->setOrganizationName(QStringLiteral("org.ilyavysotsky"));
     application->setApplicationName(QStringLiteral("yasailmusic"));
     QScopedPointer<QQuickView> view(SailfishApp::createView());
+    QSettings settings;
 
     qmlRegisterType<PlaylistModel>("org.ilyavysotsky.yasailmusic",1,0,"PlaylistModel");
-
-    QScopedPointer<SettingsWrapper> settings(new SettingsWrapper(view.data()));
-    view->rootContext()->setContextProperty("settings", settings.data());
 
     QScopedPointer<yamussdk> Yamussdk(new yamussdk(view.data()));
 
