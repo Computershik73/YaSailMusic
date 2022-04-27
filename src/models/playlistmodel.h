@@ -5,7 +5,7 @@
 #include <QJsonValue>
 #include <QObject>
 
-#include "apirequest.h"
+#include "../apirequest.h"
 
 class PlaylistModel : public QAbstractListModel
 {

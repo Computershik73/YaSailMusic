@@ -14,7 +14,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <QScopedPointer>
-#include "../authorization.h"
+#include "authorization.h"
 
 #include "models/playlistmodel.h"
 
