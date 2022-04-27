@@ -20,7 +20,6 @@ QT += multimedia core gui
 
 SOURCES += \
     apirequest.cpp \
-    audio.cpp \
     authorization.cpp \
     src/YaSailMusic.cpp \
     src/models/playlistmodel.cpp
@@ -53,6 +52,5 @@ TRANSLATIONS += translations/YandexMusic-de.ts
 
 HEADERS += \
     apirequest.h \
-    audio.h \
     authorization.h \
     src/models/playlistmodel.h
