@@ -12,6 +12,7 @@ class PlaylistModel : public QAbstractListModel
     Q_OBJECT
     Q_PROPERTY(int currentIndex READ currentIndex WRITE setCurrentIndex NOTIFY currentIndexChanged)
 
+public:
     struct Track{
         int trackId;
         int artistId;
@@ -28,7 +29,6 @@ class PlaylistModel : public QAbstractListModel
         QString fileUrl;
     };
 
-public:
     explicit PlaylistModel(QObject *parent = 0);
     virtual ~PlaylistModel() {};
 

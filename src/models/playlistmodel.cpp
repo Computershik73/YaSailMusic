@@ -5,8 +5,13 @@
 #include <QJsonObject>
 
 #include <QUrlQuery>
+#include <QStandardPaths>
+#include <QDir>
+#include <QNetworkRequest>
 
 #include "playlistmodel.h"
+#include "../authorization.h"
+#include "../cacher.h"
 
 PlaylistModel::PlaylistModel(QObject *parent)
     : QAbstractListModel(parent)
@@ -150,7 +155,7 @@ void PlaylistModel::getWaveFinished(const QJsonValue &value)
         QJsonObject trackObject = value.toObject();
         Track* newTrack = new Track;
         newTrack->trackId = trackObject["track"].toObject()["id"].toString().toInt();
-        newTrack->artistId = trackObject["track"].toObject()["artists"].toArray().at(0).toObject()["id"].toString().toInt();
+        newTrack->artistId = trackObject["track"].toObject()["artists"].toArray().at(0).toObject()["id"].toInt();
         newTrack->artistName = trackObject["track"].toObject()["artists"].toArray().at(0).toObject()["name"].toString();
         newTrack->artistCover = trackObject["track"].toObject()["artists"].toArray().at(0).toObject()["cover"].toObject()["uri"].toString();
         newTrack->albumCoverId = trackObject["track"].toObject()["albums"].toArray().at(0).toObject()["id"].toString().toInt();
@@ -166,10 +171,16 @@ void PlaylistModel::getWaveFinished(const QJsonValue &value)
             emit loadFirstDataFinished();
         }
 
+        Cacher* cacher = new Cacher(newTrack);
+        cacher->saveToCache();
+        newTrack->fileUrl = cacher->fileToSave();
+
         if(!newTrack->albumName.isEmpty() && !newTrack->trackName.isEmpty()) {
             m_playList.push_back(newTrack);
         }
     }
+
     endInsertRows();
     m_loading = false;
 }
+

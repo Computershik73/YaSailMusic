@@ -18,7 +18,7 @@ public:
     explicit Authorization(QObject *parent = 0);
     ~Authorization();
 
-    void setupRequest(QNetworkRequest *r);
+    static void setupRequest(QNetworkRequest *r);
     Q_INVOKABLE void doAuth(QString username, QString password);
     Q_INVOKABLE bool checkToken();
 
