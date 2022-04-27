@@ -46,19 +46,8 @@ CoverBackground {
                     if (!rootAudio.isPlaying) {
                         rootAudio.play()
                     }
-                } else {
-                    yamussdk.audios.get(player.queue)
                 }
             }
         }
-    }
-
-    Connections {
-        target: yamussdk
-        onGotUserAudios: {
-            // TODO: Fix me
-            //player.setPlaylist(audios, -1)
-        }
-
     }
 }
