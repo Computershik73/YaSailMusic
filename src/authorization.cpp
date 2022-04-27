@@ -17,13 +17,16 @@ Authorization::~Authorization()
 
 void Authorization::setupRequest(QNetworkRequest *r)
 {
+    QSettings settings;
+    QString accessToken = settings.value("accessToken").toString();
+
     r->setRawHeader("Accept", "*/*");
     r->setRawHeader("X-Requested-With", "XMLHttpRequest");
     r->setHeader(QNetworkRequest::UserAgentHeader, "Yandex-Music-API");
     r->setRawHeader("X-Yandex-Music-Client", "YandexMusicAndroid/23020251");
 
-    if(m_token.size() > 0) {
-        r->setRawHeader("Authorization", QString("OAuth %1").arg(m_token).toLatin1());
+    if(accessToken.size() > 0) {
+        r->setRawHeader("Authorization", QString("OAuth %1").arg(accessToken).toLatin1());
     }
 }
 

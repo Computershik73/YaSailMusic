@@ -29,13 +29,18 @@ void ApiRequest::makeApiGetRequest(const QString &method, const QUrlQuery &q) {
 }
 
 void ApiRequest::dataReady(QNetworkReply *reply) {
-    QJsonDocument jDoc = QJsonDocument::fromJson(reply->readAll());
+    QByteArray data = reply->readAll();
+    QJsonDocument jDoc = QJsonDocument::fromJson(data);
     QJsonObject jObj = jDoc.object();
     if (jObj.contains("result")) {
         QJsonValue jVal = jObj.value("result");
         QString strFromObj = QJsonDocument(jObj).toJson(QJsonDocument::Compact).toStdString().c_str();
+        qDebug() << "Reply: " << strFromObj;
         emit gotResponse(jVal);
     } else {
         qDebug() << "Error in API request!";
+        qDebug() << "+++++++++++++++++++";
+        qDebug() << data;
+
     }
 }

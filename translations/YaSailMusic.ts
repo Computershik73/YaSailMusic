@@ -2,6 +2,19 @@
 <!DOCTYPE TS>
 <TS version="2.1">
 <context>
+    <name>Authorization</name>
+    <message>
+        <location filename="../src/authorization.cpp" line="88"/>
+        <source>Strange response</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/authorization.cpp" line="91"/>
+        <source>Login failed</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>LoginPage</name>
     <message>
         <location filename="../qml/pages/LoginPage.qml" line="26"/>

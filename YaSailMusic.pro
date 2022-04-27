@@ -22,6 +22,8 @@ SOURCES += \
     src/apirequest.cpp \
     src/authorization.cpp \
     src/YaSailMusic.cpp \
+    src/cacher.cpp \
+    src/downloader.cpp \
     src/models/playlistmodel.cpp
 
 DISTFILES += \
@@ -53,4 +55,6 @@ TRANSLATIONS += translations/YandexMusic-de.ts
 HEADERS += \
     src/apirequest.h \
     src/authorization.h \
+    src/cacher.h \
+    src/downloader.h \
     src/models/playlistmodel.h
