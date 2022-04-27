@@ -14,7 +14,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <QScopedPointer>
-#include "../yamussdk.h"
+#include "../authorization.h"
 
 #include "models/playlistmodel.h"
 
@@ -36,10 +36,9 @@ int main(int argc, char *argv[])
     QSettings settings;
 
     qmlRegisterType<PlaylistModel>("org.ilyavysotsky.yasailmusic",1,0,"PlaylistModel");
+    Authorization* auth = new Authorization();
 
-    QScopedPointer<yamussdk> Yamussdk(new yamussdk(view.data()));
-
-    view->rootContext()->setContextProperty("yamussdk", Yamussdk.data());
+    view->rootContext()->setContextProperty("auth", auth);
     view->setSource(SailfishApp::pathTo("qml/YaSailMusic.qml"));
     view->show();
 

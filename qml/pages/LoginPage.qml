@@ -80,15 +80,13 @@ Page {
                 loginField.text = loginField.text.trim()+"@yandex.ru"
             }
 
-            yamussdk.auth.doAuth(loginField.text, passwordField.text, codeField.text)
+            auth.doAuth(loginField.text, passwordField.text, codeField.text)
         }
     }
 
     Connections {
         target: yamussdk.auth
         onAuthorized: {
-            yamussdk.loadAuthdata()
-
             pageContainer.replace(Qt.resolvedUrl("MainPage.qml"))
             loginNotification.previewBody = qsTr("Logged into Yandex Music")
             loginNotification.publish()

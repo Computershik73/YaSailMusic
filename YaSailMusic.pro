@@ -23,8 +23,7 @@ SOURCES += \
     audio.cpp \
     authorization.cpp \
     src/YaSailMusic.cpp \
-    src/models/playlistmodel.cpp \
-    yamussdk.cpp
+    src/models/playlistmodel.cpp
 
 DISTFILES += \
     YaSailMusic.desktop \
@@ -56,5 +55,4 @@ HEADERS += \
     apirequest.h \
     audio.h \
     authorization.h \
-    src/models/playlistmodel.h \
-    yamussdk.h
+    src/models/playlistmodel.h

@@ -2,6 +2,7 @@
 #define PLAYLISTMODEL_H
 
 #include <QAbstractListModel>
+#include <QJsonValue>
 #include <QObject>
 
 #include "apirequest.h"
@@ -48,7 +49,7 @@ signals:
     void currentIndexChanged(int currentIndex);
 
 private slots:
-    void getWaveFinished(const QJsonValue &value, ApiRequest::TaskType type);
+    void getWaveFinished(const QJsonValue &value);
 
 private:
     bool m_loading;
@@ -56,6 +57,7 @@ private:
     QList<Track*> m_playList;
     QHash<int,QByteArray> m_hash;
     ApiRequest* m_api;
+    QJsonValue m_oldValue;
 };
 
 #endif // PLAYLISTMODEL_H
