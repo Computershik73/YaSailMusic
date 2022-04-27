@@ -23,11 +23,10 @@ SOURCES += \
     audio.cpp \
     audios.cpp \
     authorization.cpp \
-    playlistmodel.cpp \
     requestbase.cpp \
     src/YaSailMusic.cpp \
-    src/mediaplayerwrapper.cpp \
     src/settingswrapper.cpp \
+    src/models/playlistmodel.cpp \
     yamussdk.cpp
 
 DISTFILES += \
@@ -61,8 +60,7 @@ HEADERS += \
     audio.h \
     audios.h \
     authorization.h \
-    playlistmodel.h \
+    src/models/playlistmodel.h \
     requestbase.h \
-    src/mediaplayerwrapper.h \
     src/settingswrapper.h \
     yamussdk.h

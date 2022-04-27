@@ -9,19 +9,35 @@ Page {
 
     SilicaListView {
         id: listView
-        model: 20
+        model: playListModel
         anchors.fill: parent
         header: PageHeader {
-            title: qsTr("Nested Page")
+            title: qsTr("Current tracks")
         }
         delegate: BackgroundItem {
             id: delegate
 
+            Image {
+                id: cover
+                source: "https://"+albumCover.replace("%%","200x200")
+                width: height
+                height: parent.height
+            }
+
             Label {
                 x: Theme.horizontalPageMargin
-                text: qsTr("Item") + " " + index
-                anchors.verticalCenter: parent.verticalCenter
+                text: artistName + " - " + trackName
+                anchors{
+                    left: cover.right
+                    leftMargin: 20
+                    top: parent.top
+                }
+
                 color: delegate.highlighted ? Theme.highlightColor : Theme.primaryColor
+            }
+
+            onClicked: {
+                playListModel.currentIndex = index;
             }
         }
         VerticalScrollDecorator {}

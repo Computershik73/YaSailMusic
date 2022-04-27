@@ -58,12 +58,19 @@
 <context>
     <name>PlaylistPage</name>
     <message>
-        <source>Nested Page</source>
-        <translation type="unfinished">Unterseite</translation>
+        <source>Current tracks</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>YaSailMusic</name>
+    <message>
+        <source>Loading</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Item</source>
-        <translation type="unfinished">Element</translation>
+        <source>tags...</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

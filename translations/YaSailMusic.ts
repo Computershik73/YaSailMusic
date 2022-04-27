@@ -37,32 +37,32 @@
 <context>
     <name>MainPage</name>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="31"/>
+        <location filename="../qml/pages/MainPage.qml" line="22"/>
         <source>Search</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="35"/>
+        <location filename="../qml/pages/MainPage.qml" line="26"/>
         <source>View playlist</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="42"/>
+        <location filename="../qml/pages/MainPage.qml" line="33"/>
         <source>My wave</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="48"/>
+        <location filename="../qml/pages/MainPage.qml" line="39"/>
         <source>Search audio...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="96"/>
+        <location filename="../qml/pages/MainPage.qml" line="86"/>
         <source>Play</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="96"/>
+        <location filename="../qml/pages/MainPage.qml" line="86"/>
         <source>Pause</source>
         <translation type="unfinished"></translation>
     </message>
@@ -71,12 +71,20 @@
     <name>PlaylistPage</name>
     <message>
         <location filename="../qml/pages/PlaylistPage.qml" line="15"/>
-        <source>Nested Page</source>
+        <source>Current tracks</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>YaSailMusic</name>
+    <message>
+        <location filename="../qml/YaSailMusic.qml" line="43"/>
+        <source>Loading</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/PlaylistPage.qml" line="22"/>
-        <source>Item</source>
+        <location filename="../qml/YaSailMusic.qml" line="44"/>
+        <source>tags...</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
