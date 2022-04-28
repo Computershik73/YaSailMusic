@@ -25,6 +25,8 @@ ApplicationWindow {
         id: playListModel
         onCurrentIndexChanged: {
             rootAudio.source = "file://" + playListModel.get(currentIndex).fileUrl;
+            mprisPlayer.song = playListModel.get(currentIndex).trackName
+            mprisPlayer.artist = playListModel.get(currentIndex).artistName
             rootAudio.play();
         }
     }
@@ -35,6 +37,7 @@ ApplicationWindow {
             if (rootAudio.status == MediaPlayer.EndOfMedia)
                 ++playListModel.currentIndex
         }
+
     }
 
     MprisPlayer {
@@ -42,6 +45,7 @@ ApplicationWindow {
 
         property string artist: qsTr("Loading")
         property string song: qsTr("tags...")
+
 
         serviceName: "yandex-music"
         identity: "YaSailMusic"
@@ -72,8 +76,6 @@ ApplicationWindow {
             mprisPlayer.metadata = metadata
         }
 
-
-
         onPauseRequested: {
             rootAudio.pause()
         }
@@ -100,11 +102,5 @@ ApplicationWindow {
 
     }
 
-    Connections {
-        target: playListModel
-        onMediaChanged: {
-            mprisPlayer.song = PlaylistModel.currentSong
-            mprisPlayer.artist = PlaylistModel.currentArtist
-        }
-    }
+
 }
