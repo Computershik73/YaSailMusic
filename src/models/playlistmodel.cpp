@@ -214,7 +214,7 @@ void PlaylistModel::getWaveFinished(const QJsonValue &value)
         cacher->saveToCache();
         newTrack->fileUrl = cacher->fileToSave();
 
-        if(!newTrack->albumName.isEmpty() && !newTrack->trackName.isEmpty() && (!(m_oldValue.toString().contains(trackObject["track"].toObject()["id"].toString())))) {
+        if(!newTrack->albumName.isEmpty() && (!(m_playList.contains(newTrack))) && !newTrack->trackName.isEmpty() && (!(m_oldValue.toString().contains(trackObject["track"].toObject()["id"].toString())))) {
             beginInsertRows(QModelIndex(), m_playList.size(), m_playList.size());
             m_playList.push_back(newTrack);
             endInsertRows();
