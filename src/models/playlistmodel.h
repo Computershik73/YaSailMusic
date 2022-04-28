@@ -41,8 +41,10 @@ public:
 
     Q_INVOKABLE void loadMyWave();
 
-    void setCurrentIndex(int currentIndex);
+    Q_INVOKABLE void setCurrentIndex(int currentIndex);
     int currentIndex() {return m_currentIndex;}
+    Q_INVOKABLE QString currentSong() { return m_currentSong;}
+    Q_INVOKABLE QString currentArtist() { return m_currentArtist;}
 
 signals:
     void loadFirstDataFinished();
@@ -57,6 +59,8 @@ private slots:
 private:
     bool m_loading;
     int m_currentIndex;
+    QString m_currentSong;
+    QString m_currentArtist;
     QList<Track*> m_playList;
     QHash<int,QByteArray> m_hash;
     ApiRequest* m_api;

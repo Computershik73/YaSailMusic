@@ -38,7 +38,7 @@ PlaylistModel::PlaylistModel(QObject *parent)
 
 int PlaylistModel::rowCount(const QModelIndex &parent) const {
     Q_UNUSED(parent)
-    return m_playList.count();
+    return m_playList.size();
 }
 
 QVariant PlaylistModel::data(const QModelIndex &index, int role) const {
@@ -83,18 +83,24 @@ QVariant PlaylistModel::data(const QModelIndex &index, int role) const {
 bool PlaylistModel::insertRows(int position, int rows, Track *item, const QModelIndex &index)
 {
     Q_UNUSED(index);
+    if (!(m_playList.contains(item)))
+    {
     beginInsertRows(QModelIndex(), position, position+rows-1);
     for (int row = 0; row < rows; ++row) {
+        if (!(m_playList.contains(item)))
+        {
         m_playList.insert(position, item);
+        }
     }
     endInsertRows();
+    }
     return true;
 }
 
 bool PlaylistModel::removeRows(int position, int rows, const QModelIndex &index)
 {
     Q_UNUSED(index);
-    if((position+rows) > m_playList.count())
+    if((position+rows) > m_playList.size())
     {
         return false;
     }
@@ -108,21 +114,25 @@ bool PlaylistModel::removeRows(int position, int rows, const QModelIndex &index)
 }
 
 
+
 void PlaylistModel::setCurrentIndex(int currentIndex)
 {
-    if(currentIndex >= 0 && currentIndex < m_playList.count() && currentIndex != m_currentIndex)
+
+    if(currentIndex >= 0 && currentIndex < m_playList.size() && currentIndex != m_currentIndex)
     {
         m_currentIndex = currentIndex;
-        emit currentIndexChanged(m_currentIndex);
+         m_currentSong = m_playList.at(currentIndex)->trackName;
+         m_currentArtist = m_playList.at(currentIndex)->artistName;
+        emit currentIndexChanged(currentIndex);
 
-        if(m_currentIndex == m_playList.count()-1) {
+        if(m_currentIndex == m_playList.size()-1) {
             qDebug() << "Load new tracks!";
             loadMyWave();
         }
     }
 }
 
-QVariant PlaylistModel::get(const int idx)
+QVariant PlaylistModel::get(int idx)
 {
     if(idx >= m_playList.size())
     {
@@ -130,7 +140,9 @@ QVariant PlaylistModel::get(const int idx)
     }
 
     QMap<QString, QVariant> itemData;
-    Track* item = m_playList.at(idx);
+
+     Track* item = m_playList.at(idx);
+
 
     itemData.insert("trackId",item->trackId);
     itemData.insert("artistId",item->artistId);
@@ -158,8 +170,8 @@ void PlaylistModel::loadMyWave()
 
     QUrlQuery query;
     query.addQueryItem("settings2", "true");
-    if(m_playList.count() > 0) {
-        query.addQueryItem("queue", QString::number(m_playList.at(m_playList.count()-1)->trackId));
+    if(m_playList.size() > 0) {
+        query.addQueryItem("queue", QString::number(m_playList.at(m_playList.size()-1)->trackId));
     }
     m_api->makeApiGetRequest("/rotor/station/user:onyourwave/tracks", query);
     connect(m_api, &ApiRequest::gotResponse, this, &PlaylistModel::getWaveFinished);
@@ -176,7 +188,7 @@ void PlaylistModel::getWaveFinished(const QJsonValue &value)
 
     QJsonObject qjo = value.toObject();
     QJsonArray tracks = qjo["sequence"].toArray();
-    beginInsertRows(QModelIndex(), m_playList.count(), m_playList.count()+tracks.count()-1);
+    //beginInsertRows(QModelIndex(), m_playList.count(), m_playList.count()+tracks.count()-1);
 
     foreach (const QJsonValue & value, tracks) {
         QJsonObject trackObject = value.toObject();
@@ -194,7 +206,7 @@ void PlaylistModel::getWaveFinished(const QJsonValue &value)
         newTrack->storageDir = trackObject["track"].toObject()["storageDir"].toString();
         newTrack->liked = trackObject["liked"].toBool();
 
-        if(m_playList.count() == 0) {
+        if(m_playList.size() == 0) {
             emit loadFirstDataFinished();
         }
 
@@ -202,12 +214,14 @@ void PlaylistModel::getWaveFinished(const QJsonValue &value)
         cacher->saveToCache();
         newTrack->fileUrl = cacher->fileToSave();
 
-        if(!newTrack->albumName.isEmpty() && !newTrack->trackName.isEmpty()) {
+        if(!newTrack->albumName.isEmpty() && !newTrack->trackName.isEmpty() && (!(m_oldValue.toString().contains(trackObject["track"].toObject()["id"].toString())))) {
+            beginInsertRows(QModelIndex(), m_playList.size(), m_playList.size());
             m_playList.push_back(newTrack);
+            endInsertRows();
         }
     }
 
-    endInsertRows();
+    //endInsertRows();
     m_loading = false;
 }
 

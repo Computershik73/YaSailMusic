@@ -73,14 +73,17 @@ Page {
                 id: medbut
                 source: rootAudio.isPlaying ? "image://theme/icon-cover-pause" : "image://theme/icon-cover-play"
                 mouseArea.onClicked: {
-                    if(playListModel.currentIndex == -1) {
+
+                    if(playListModel.currentIndex === -1) {
                         playListModel.currentIndex = 0;
                     }
 
                     if (rootAudio.isPlaying) {
                         rootAudio.pause()
+                        source = "image://theme/icon-cover-pause"
                     } else {
                         rootAudio.play()
+                        source = "image://theme/icon-cover-play"
                     }
                 }
             }

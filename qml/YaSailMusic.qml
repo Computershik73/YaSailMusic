@@ -32,7 +32,8 @@ ApplicationWindow {
     MediaPlayer{
         id: rootAudio
         onStopped: {
-            ++playListModel.currentIndex
+            if (rootAudio.status == MediaPlayer.EndOfMedia)
+                ++playListModel.currentIndex
         }
     }
 
@@ -47,15 +48,17 @@ ApplicationWindow {
         supportedUriSchemes: ["file"]
         supportedMimeTypes: ["audio/x-wav", "audio/x-vorbis+ogg", "audio/mpeg"]
 
+
+        canSeek: true
+
         canControl: true
 
         canGoNext: true
         canGoPrevious: true
-        canPause: rootAudio.playbackState == MediaPlayer.PlayingState
-        canPlay: rootAudio.playbackState != MediaPlayer.PlayingState
-        canSeek: false
+        canPause: true
+        canPlay: true
 
-        playbackStatus: (rootAudio.playbackState == MediaPlayer.PlayingState) ? Mpris.Playing : Mpris.Paused
+        playbackStatus: (rootAudio.playbackState === MediaPlayer.PlayingState) ? Mpris.Playing : Mpris.Paused
 
         onArtistChanged: {
             var metadata = mprisPlayer.metadata
@@ -67,6 +70,41 @@ ApplicationWindow {
             var metadata = mprisPlayer.metadata
             metadata[Mpris.metadataToString(Mpris.Title)] = song // String
             mprisPlayer.metadata = metadata
+        }
+
+
+
+        onPauseRequested: {
+            rootAudio.pause()
+        }
+        onPlayRequested: {
+            rootAudio.play()
+        }
+        onPlayPauseRequested: {
+            if (rootAudio.playbackState === MediaPlayer.PlayingState) {
+                rootAudio.pause()
+            } else {
+                rootAudio.play()
+            }
+        }
+        onStopRequested: {
+            rootAudio.stop()
+        }
+
+        onNextRequested: {
+            ++playListModel.currentIndex
+        }
+        onPreviousRequested: {
+            --playListModel.currentIndex
+        }
+
+    }
+
+    Connections {
+        target: playListModel
+        onMediaChanged: {
+            mprisPlayer.song = PlaylistModel.currentSong
+            mprisPlayer.artist = PlaylistModel.currentArtist
         }
     }
 }

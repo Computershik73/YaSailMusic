@@ -70,12 +70,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="90"/>
+        <location filename="../qml/pages/MainPage.qml" line="93"/>
         <source>Play</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="90"/>
+        <location filename="../qml/pages/MainPage.qml" line="93"/>
         <source>Pause</source>
         <translation type="unfinished"></translation>
     </message>
@@ -91,12 +91,12 @@
 <context>
     <name>YaSailMusic</name>
     <message>
-        <location filename="../qml/YaSailMusic.qml" line="42"/>
+        <location filename="../qml/YaSailMusic.qml" line="43"/>
         <source>Loading</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/YaSailMusic.qml" line="43"/>
+        <location filename="../qml/YaSailMusic.qml" line="44"/>
         <source>tags...</source>
         <translation type="unfinished"></translation>
     </message>
