@@ -34,8 +34,10 @@ ApplicationWindow {
     MediaPlayer{
         id: rootAudio
         onStopped: {
-            if (rootAudio.status == MediaPlayer.EndOfMedia)
+            if (rootAudio.status == MediaPlayer.EndOfMedia) {
+                playListModel.playTrack()
                 ++playListModel.currentIndex
+            }
         }
     }
 

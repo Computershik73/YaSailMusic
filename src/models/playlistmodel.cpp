@@ -12,6 +12,7 @@
 #include "playlistmodel.h"
 #include "../authorization.h"
 #include "../cacher.h"
+#include <QSettings>
 
 PlaylistModel::PlaylistModel(QObject *parent)
     : QAbstractListModel(parent)
@@ -85,14 +86,14 @@ bool PlaylistModel::insertRows(int position, int rows, Track *item, const QModel
     Q_UNUSED(index);
     if (!(m_playList.contains(item)))
     {
-    beginInsertRows(QModelIndex(), position, position+rows-1);
-    for (int row = 0; row < rows; ++row) {
-        if (!(m_playList.contains(item)))
-        {
-        m_playList.insert(position, item);
+        beginInsertRows(QModelIndex(), position, position+rows-1);
+        for (int row = 0; row < rows; ++row) {
+            if (!(m_playList.contains(item)))
+            {
+                m_playList.insert(position, item);
+            }
         }
-    }
-    endInsertRows();
+        endInsertRows();
     }
     return true;
 }
@@ -121,8 +122,8 @@ void PlaylistModel::setCurrentIndex(int currentIndex)
     if(currentIndex >= 0 && currentIndex < m_playList.size() && currentIndex != m_currentIndex)
     {
         m_currentIndex = currentIndex;
-         m_currentSong = m_playList.at(currentIndex)->trackName;
-         m_currentArtist = m_playList.at(currentIndex)->artistName;
+        m_currentSong = m_playList.at(currentIndex)->trackName;
+        m_currentArtist = m_playList.at(currentIndex)->artistName;
         emit currentIndexChanged(currentIndex);
 
         if(m_currentIndex == m_playList.size()-1) {
@@ -141,7 +142,7 @@ QVariant PlaylistModel::get(int idx)
 
     QMap<QString, QVariant> itemData;
 
-     Track* item = m_playList.at(idx);
+    Track* item = m_playList.at(idx);
 
 
     itemData.insert("trackId",item->trackId);
@@ -159,6 +160,27 @@ QVariant PlaylistModel::get(int idx)
     itemData.insert("fileUrl",item->fileUrl);
 
     return QVariant(itemData);
+}
+
+void PlaylistModel::playTrack()
+{
+    QUrlQuery query;
+    QSettings settings;
+    QDateTime current = QDateTime::currentDateTime();
+    QString curdt = current.toString("yyyy-MM-ddThh:mm:ss.zzzZ");
+    QString userId = settings.value("userId").toString();
+    query.addQueryItem("uid", userId);
+    query.addQueryItem("client-now", curdt);
+    query.addQueryItem("from-cache", "false");
+    query.addQueryItem("track-length-seconds", QString::number(m_playList.at(m_playList.size()-1)->duration));
+    query.addQueryItem("end-position-seconds", QString::number(m_playList.at(m_playList.size()-1)->duration));
+    query.addQueryItem("from", "mobile-home-rup_main-user-onyourwave-default");
+    query.addQueryItem("track-id", QString::number(m_currentIndex));
+    query.addQueryItem("play-id", "79CFB84C-4A0B-4B31-8954-3006C0BD9274");
+    query.addQueryItem("timestamp", curdt);
+    query.addQueryItem("total-played-seconds", QString::number(m_playList.at(m_playList.size()-1)->duration));
+    m_api->makeApiGetRequest("/play-audio", query);
+    //connect(m_api, &ApiRequest::gotResponse, this, &PlaylistModel::getWaveFinished);
 }
 
 void PlaylistModel::loadMyWave()
