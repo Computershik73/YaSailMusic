@@ -21,7 +21,6 @@ void ApiRequest::makeApiGetRequest(const QString &method, const QUrlQuery &q) {
     QUrlQuery query = q;
     QUrl url(API_URL + method);
     url.setQuery(query.query());
-    _manager = new QNetworkAccessManager(this);
     QNetworkRequest request(url);
     request.setRawHeader("Authorization", "OAuth "+accessToken.toUtf8());
     connect(_manager, &QNetworkAccessManager::finished, this, &ApiRequest::dataReady, Qt::QueuedConnection);

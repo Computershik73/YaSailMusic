@@ -39,7 +39,6 @@ Page {
 
             onClicked: {
                  playListModel.setCurrentIndex(index)
-                //playListModel.currentIndex = index;
             }
         }
         VerticalScrollDecorator {}

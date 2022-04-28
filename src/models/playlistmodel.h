@@ -43,8 +43,8 @@ public:
 
     Q_INVOKABLE void setCurrentIndex(int currentIndex);
     int currentIndex() {return m_currentIndex;}
-    Q_INVOKABLE QString currentSong() { return m_currentSong;}
-    Q_INVOKABLE QString currentArtist() { return m_currentArtist;}
+    QString currentSong() { return m_currentSong;}
+    QString currentArtist() { return m_currentArtist;}
 
 signals:
     void loadFirstDataFinished();
