@@ -91,12 +91,12 @@
 <context>
     <name>YaSailMusic</name>
     <message>
-        <location filename="../qml/YaSailMusic.qml" line="43"/>
+        <location filename="../qml/YaSailMusic.qml" line="46"/>
         <source>Loading</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/YaSailMusic.qml" line="44"/>
+        <location filename="../qml/YaSailMusic.qml" line="47"/>
         <source>tags...</source>
         <translation type="unfinished"></translation>
     </message>
