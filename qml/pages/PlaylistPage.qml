@@ -38,7 +38,8 @@ Page {
             }
 
             onClicked: {
-                 playListModel.setCurrentIndex(index)
+                playListModel.playTrack()
+                playListModel.setCurrentIndex(index)
             }
         }
         VerticalScrollDecorator {}

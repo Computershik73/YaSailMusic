@@ -40,7 +40,7 @@ public:
     bool removeRows(int position, int rows, const QModelIndex &index = QModelIndex());
 
     Q_INVOKABLE void loadMyWave();
-
+    Q_INVOKABLE void playTrack();
     Q_INVOKABLE void setCurrentIndex(int currentIndex);
     int currentIndex() {return m_currentIndex;}
     QString currentSong() { return m_currentSong;}

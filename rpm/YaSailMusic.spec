@@ -6,7 +6,7 @@ Name:       YaSailMusic
 %{?qtc_builddir:%define _builddir %qtc_builddir}
 Summary:    The unofficial client for Yandex Music
 Version:    0.1
-Release:    1
+Release:    2
 Group:      Qt/Qt
 License:    GNU GPLv3
 URL:        https://vk.com/mobilevika
@@ -19,7 +19,7 @@ BuildRequires:  pkgconfig(Qt5Quick)
 BuildRequires:  desktop-file-utils
 
 %description
-The unofficial client for Yandex Music by Ilya Vysotsky
+The unofficial client for Yandex Music by Ilya Vysotsky and Sergey Chupligin
 
 %prep
 %setup -q -n %{name}-%{version}
