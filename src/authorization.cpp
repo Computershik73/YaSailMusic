@@ -64,6 +64,17 @@ bool Authorization::checkToken()
     return false;
 }
 
+
+void Authorization::removeAccessToken() {
+    QSettings settings;
+    settings.remove("accessToken");
+}
+
+void Authorization::removeUserId() {
+    QSettings settings;
+    settings.remove("userId");
+}
+
 void Authorization::doAuthFinished()
 {
     QNetworkReply *reply = qobject_cast<QNetworkReply*>(sender());
@@ -85,9 +96,9 @@ void Authorization::doAuthFinished()
 
             emit authorized(m_token, m_userId);
         } else {
-            emit tr("Strange response");
+            emit error("Strange response");
         }
     } else {
-        emit tr("Login failed");
+        emit error("Login failed");
     }
 }

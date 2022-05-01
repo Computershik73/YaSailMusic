@@ -2,19 +2,6 @@
 <!DOCTYPE TS>
 <TS version="2.1">
 <context>
-    <name>Authorization</name>
-    <message>
-        <location filename="../src/authorization.cpp" line="88"/>
-        <source>Strange response</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/authorization.cpp" line="91"/>
-        <source>Login failed</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>LoginPage</name>
     <message>
         <location filename="../qml/pages/LoginPage.qml" line="26"/>
@@ -56,26 +43,31 @@
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="26"/>
+        <source>Logout</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/MainPage.qml" line="34"/>
         <source>View playlist</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="33"/>
+        <location filename="../qml/pages/MainPage.qml" line="41"/>
         <source>My wave</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="39"/>
+        <location filename="../qml/pages/MainPage.qml" line="47"/>
         <source>Search audio...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="93"/>
+        <location filename="../qml/pages/MainPage.qml" line="101"/>
         <source>Play</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="93"/>
+        <location filename="../qml/pages/MainPage.qml" line="101"/>
         <source>Pause</source>
         <translation type="unfinished"></translation>
     </message>

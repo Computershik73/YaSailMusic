@@ -85,7 +85,7 @@ Page {
     }
 
     Connections {
-        target: yamussdk.auth
+        target: auth
         onAuthorized: {
             pageContainer.replace(Qt.resolvedUrl("MainPage.qml"))
             loginNotification.previewBody = qsTr("Logged into Yandex Music")

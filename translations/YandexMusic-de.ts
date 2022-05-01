@@ -2,17 +2,6 @@
 <!DOCTYPE TS>
 <TS version="2.1">
 <context>
-    <name>Authorization</name>
-    <message>
-        <source>Strange response</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Login failed</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>LoginPage</name>
     <message>
         <source>Login:</source>
@@ -63,6 +52,10 @@
     </message>
     <message>
         <source>Search audio...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Logout</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
