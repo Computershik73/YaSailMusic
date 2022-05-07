@@ -8,11 +8,16 @@
 #include <QStandardPaths>
 #include <QDir>
 #include <QNetworkRequest>
-
+#include <QElapsedTimer>
 #include "playlistmodel.h"
 #include "../authorization.h"
 #include "../cacher.h"
 #include <QSettings>
+#include <QJsonDocument>
+#include <QEventLoop>
+#include <QTimer>
+#include <QThread>
+#include <QGuiApplication>
 
 PlaylistModel::PlaylistModel(QObject *parent)
     : QAbstractListModel(parent)
@@ -41,6 +46,17 @@ int PlaylistModel::rowCount(const QModelIndex &parent) const {
     Q_UNUSED(parent)
     return m_playList.size();
 }
+
+inline void delayy(int millisecondsWait)
+{
+    QEventLoop loop;
+    QTimer t;
+    t.connect(&t, &QTimer::timeout, &loop, &QEventLoop::quit);
+    t.start(millisecondsWait);
+    loop.exec();
+}
+
+
 
 QVariant PlaylistModel::data(const QModelIndex &index, int role) const {
     Q_UNUSED(role);
@@ -157,13 +173,21 @@ QVariant PlaylistModel::get(int idx)
     itemData.insert("duration", item->duration);
     itemData.insert("storageDir",item->storageDir);
     itemData.insert("liked",item->liked);
-    itemData.insert("fileUrl",item->fileUrl);
-
+    QFile fileToSave(item->fileUrl);
+    if (QFile::exists(item->fileUrl) && fileToSave.size()>1000000) {
+        qDebug() << "fileurl";
+        itemData.insert("fileUrl", "file://"+ item->fileUrl);
+    } else {
+        qDebug() << "fullurl";
+        itemData.insert("fileUrl", item->url);
+    }
     return QVariant(itemData);
 }
 
 void PlaylistModel::playTrack()
 {
+    //https://api.music.yandex.net/play-audio?total-played-seconds=0.1&track-length-seconds=281.983&client-now=2022-04-24T06:05:30.742Z&album-id=5939666&end-position-seconds=0.1&from-cache=false&timestamp=2022-04-24T06:05:30.735Z&track-id=44317484&uid=253482261&from=radio-mobile-user-onyourwave-default&play-id=B0A28CEF-61ED-4373-B3A8-B46B545C6096&restored=true
+
     QUrlQuery query;
     QSettings settings;
     QDateTime current = QDateTime::currentDateTime();
@@ -172,15 +196,58 @@ void PlaylistModel::playTrack()
     query.addQueryItem("uid", userId);
     query.addQueryItem("client-now", curdt);
     query.addQueryItem("from-cache", "false");
-    query.addQueryItem("track-length-seconds", QString::number(m_playList.at(m_playList.size()-1)->duration));
-    query.addQueryItem("end-position-seconds", QString::number(m_playList.at(m_playList.size()-1)->duration));
+    query.addQueryItem("track-id", QString::number(m_playList.at(m_currentIndex)->albumCoverId));
+    query.addQueryItem("track-length-seconds", QString::number(m_playList.at(m_currentIndex)->duration));
+    query.addQueryItem("end-position-seconds", QString::number(m_playList.at(m_currentIndex)->duration));
     query.addQueryItem("from", "mobile-home-rup_main-user-onyourwave-default");
-    query.addQueryItem("track-id", QString::number(m_currentIndex));
+    query.addQueryItem("track-id", QString::number(m_playList.at(m_currentIndex)->trackId));
     query.addQueryItem("play-id", "79CFB84C-4A0B-4B31-8954-3006C0BD9274");
     query.addQueryItem("timestamp", curdt);
-    query.addQueryItem("total-played-seconds", QString::number(m_playList.at(m_playList.size()-1)->duration));
-    m_api->makeApiGetRequest("/play-audio", query);
-    //connect(m_api, &ApiRequest::gotResponse, this, &PlaylistModel::getWaveFinished);
+    query.addQueryItem("total-played-seconds", QString::number(m_playList.at(m_currentIndex)->duration));
+    qDebug() << query.toString();
+    m_api->makeApiPostRequest("/play-audio?"+query.toString(), QString(""));
+
+}
+
+
+void PlaylistModel::sendFeedback(QString type)
+{
+    //https://api.music.yandex.net/rotor/station/user:onyourwave/feedback?batch-id=1650794627602847-12773357239773228567.svBt
+    //{"type":"trackStarted","totalPlayedSeconds":0,"timestamp":"2022-04-24T06:05:47.021Z","trackId":"4148044:468625"}
+    //QUrlQuery query;
+
+    QDateTime current = QDateTime::currentDateTime();
+    QString curdt = current.toString("yyyy-MM-ddThh:mm:ss.zzzZ");
+    /* query.addQueryItem("type", type);
+    if (type.contains("trackStarted")) {
+        query.addQueryItem("totalPlayedSeconds", "0");
+    } else {
+        query.addQueryItem("totalPlayedSeconds", QString::number(m_playList.at(m_currentIndex)->duration));
+    }
+    query.addQueryItem("track-id", QString::number(m_playList.at(m_currentIndex)->trackId)+":"+QString::number(m_playList.at(m_currentIndex)->albumCoverId));
+    query.addQueryItem("timestamp", curdt);*/
+    QJsonObject o1;
+    if (type.contains("trackStarted")) {
+        o1 =
+        {
+            { "type", type},
+            { "timestamp", curdt },
+            { "totalPlayedSeconds", 0 },
+            { "trackId", QString::number(m_playList.at(m_currentIndex)->trackId)+":"+QString::number(m_playList.at(m_currentIndex)->albumCoverId) }
+        };
+    } else {
+        o1 =
+        {
+            { "type", type },
+            { "timestamp", curdt },
+            { "totalPlayedSeconds", QString::number(m_playList.at(m_currentIndex)->duration) },
+            { "trackId", QString::number(m_playList.at(m_currentIndex)->trackId)+":"+QString::number(m_playList.at(m_currentIndex)->albumCoverId) }
+        };
+    }
+    QString strFromObj = QJsonDocument(o1).toJson(QJsonDocument::Compact).toStdString().c_str();
+    qDebug() << "JSON: " << strFromObj;
+    m_api->makeApiPostRequest("/rotor/station/user:onyourwave/feedback?batch-id="+batchid, strFromObj);
+
 }
 
 void PlaylistModel::loadMyWave()
@@ -197,6 +264,7 @@ void PlaylistModel::loadMyWave()
     }
     m_api->makeApiGetRequest("/rotor/station/user:onyourwave/tracks", query);
     connect(m_api, &ApiRequest::gotResponse, this, &PlaylistModel::getWaveFinished);
+
 }
 
 void PlaylistModel::getWaveFinished(const QJsonValue &value)
@@ -210,6 +278,7 @@ void PlaylistModel::getWaveFinished(const QJsonValue &value)
 
     QJsonObject qjo = value.toObject();
     QJsonArray tracks = qjo["sequence"].toArray();
+    batchid = qjo["batchId"].toString();
     //beginInsertRows(QModelIndex(), m_playList.count(), m_playList.count()+tracks.count()-1);
 
     foreach (const QJsonValue & value, tracks) {
@@ -219,7 +288,8 @@ void PlaylistModel::getWaveFinished(const QJsonValue &value)
         newTrack->artistId = trackObject["track"].toObject()["artists"].toArray().at(0).toObject()["id"].toInt();
         newTrack->artistName = trackObject["track"].toObject()["artists"].toArray().at(0).toObject()["name"].toString();
         newTrack->artistCover = trackObject["track"].toObject()["artists"].toArray().at(0).toObject()["cover"].toObject()["uri"].toString();
-        newTrack->albumCoverId = trackObject["track"].toObject()["albums"].toArray().at(0).toObject()["id"].toString().toInt();
+        newTrack->albumCoverId = trackObject["track"].toObject()["albums"].toArray().at(0).toObject()["id"].toInt();
+        qDebug() << "albumId: " << QString::number(newTrack->albumCoverId);
         newTrack->albumName = trackObject["track"].toObject()["albums"].toArray().at(0).toObject()["title"].toString();
         newTrack->albumCover = trackObject["track"].toObject()["albums"].toArray().at(0).toObject()["coverUri"].toString();
         newTrack->trackName = trackObject["track"].toObject()["title"].toString();
@@ -232,12 +302,14 @@ void PlaylistModel::getWaveFinished(const QJsonValue &value)
             emit loadFirstDataFinished();
         }
 
-        Cacher* cacher = new Cacher(newTrack);
-        cacher->saveToCache();
-        newTrack->fileUrl = cacher->fileToSave();
+
 
         if(!newTrack->albumName.isEmpty() && (!(m_playList.contains(newTrack))) && !newTrack->trackName.isEmpty() && (!(m_oldValue.toString().contains(trackObject["track"].toObject()["id"].toString())))) {
             beginInsertRows(QModelIndex(), m_playList.size(), m_playList.size());
+            Cacher* cacher = new Cacher(newTrack);
+            cacher->saveToCache();
+            newTrack->fileUrl = cacher->fileToSave();
+            newTrack->url = cacher->Url();
             m_playList.push_back(newTrack);
             endInsertRows();
         }

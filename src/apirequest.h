@@ -21,6 +21,7 @@ public:
     ~ApiRequest();
 
     void makeApiGetRequest(const QString &method, const QUrlQuery &query);
+    void makeApiPostRequest(const QString &method, const QString &query);
 
 signals:
     void gotResponse(const QJsonValue &value);

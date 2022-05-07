@@ -38,8 +38,10 @@ Page {
             }
 
             onClicked: {
-                playListModel.playTrack()
                 playListModel.setCurrentIndex(index)
+                //playListModel.sendFeedback("trackStarted")
+                //playListModel.playTrack()
+                //playListModel.sendFeedback("trackFinished")
             }
         }
         VerticalScrollDecorator {}
