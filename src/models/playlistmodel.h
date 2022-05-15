@@ -27,6 +27,7 @@ public:
         QString storageDir;
         bool liked;
         QString fileUrl;
+        QString url;
     };
 
     explicit PlaylistModel(QObject *parent = 0);
@@ -41,6 +42,7 @@ public:
 
     Q_INVOKABLE void loadMyWave();
     Q_INVOKABLE void playTrack();
+    Q_INVOKABLE void sendFeedback(QString type);
     Q_INVOKABLE void setCurrentIndex(int currentIndex);
     int currentIndex() {return m_currentIndex;}
     QString currentSong() { return m_currentSong;}
@@ -59,6 +61,7 @@ private slots:
 private:
     bool m_loading;
     int m_currentIndex;
+    QString batchid;
     QString m_currentSong;
     QString m_currentArtist;
     QList<Track*> m_playList;

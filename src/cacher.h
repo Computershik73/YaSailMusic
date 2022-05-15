@@ -11,6 +11,7 @@ public:
     explicit Cacher(PlaylistModel::Track* track, QObject *parent = nullptr);
     void saveToCache();
     QString fileToSave();
+    QString Url();
 
 signals:
 
@@ -22,6 +23,7 @@ private slots:
 private:
     PlaylistModel::Track* m_track;
     QString m_fileToSave;
+    QString m_Url;
 };
 
 #endif // CACHER_H

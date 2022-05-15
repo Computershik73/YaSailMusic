@@ -40,6 +40,11 @@ QString Cacher::fileToSave()
     return m_fileToSave;
 }
 
+QString Cacher::Url()
+{
+    return m_Url;
+}
+
 void Cacher::getDownloadInfoFinished(const QJsonValue &value)
 {
     QJsonArray qja = value.toArray();
@@ -100,7 +105,7 @@ void Cacher::getSongUrl()
 
     QString  sign  = QString(QCryptographicHash::hash((("XGRlBW9FXlekgbPrRHuSiA" + path.mid(1) + s).toUtf8()),QCryptographicHash::Md5).toHex());
     QString finalUrl = "https://"+host+"/get-mp3/"+sign+"/"+ts+path;
-
+    m_Url = finalUrl;
     Downloader *songDownloader = new Downloader(finalUrl);
     connect(songDownloader, &Downloader::stringReady, this, &Cacher::saveData);
     songDownloader->loadData();

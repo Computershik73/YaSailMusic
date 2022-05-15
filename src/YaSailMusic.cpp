@@ -9,7 +9,7 @@
 #include <QScopedPointer>
 #include <QtGlobal>
 
-#include <sailfishapp.h>
+#include </home/okabe2011/SailfishOS/mersdk/targets/SailfishOS-3.4.0.24-armv7hl.default/usr/include/sailfishapp/sailfishapp.h>
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -17,6 +17,7 @@
 #include "authorization.h"
 
 #include "models/playlistmodel.h"
+
 
 int main(int argc, char *argv[])
 {
@@ -32,12 +33,13 @@ int main(int argc, char *argv[])
     QScopedPointer<QGuiApplication> application(SailfishApp::application(argc, argv));
     application->setOrganizationName(QStringLiteral("org.ilyavysotsky"));
     application->setApplicationName(QStringLiteral("yasailmusic"));
+
     QScopedPointer<QQuickView> view(SailfishApp::createView());
     QSettings settings;
 
     qmlRegisterType<PlaylistModel>("org.ilyavysotsky.yasailmusic",1,0,"PlaylistModel");
     Authorization* auth = new Authorization();
-
+    view->rootContext()->setContextProperty("application", application.data());
     view->rootContext()->setContextProperty("auth", auth);
     view->setSource(SailfishApp::pathTo("qml/YaSailMusic.qml"));
     view->show();

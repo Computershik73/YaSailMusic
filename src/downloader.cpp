@@ -24,7 +24,7 @@ void Downloader::loadData()
     }
 
     QNetworkRequest request(m_url);
-    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
+    //request.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
     request.setRawHeader("User-Agent","Glacier music player");
     m_response = m_manager->get(request);
 

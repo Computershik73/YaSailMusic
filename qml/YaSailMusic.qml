@@ -24,10 +24,17 @@ ApplicationWindow {
     PlaylistModel{
         id: playListModel
         onCurrentIndexChanged: {
-            rootAudio.source = "file://" + playListModel.get(currentIndex).fileUrl;
+            rootAudio.source = playListModel.get(currentIndex).fileUrl;
             mprisPlayer.song = playListModel.get(currentIndex).trackName
             mprisPlayer.artist = playListModel.get(currentIndex).artistName
+            playListModel.sendFeedback("trackFinished")
             rootAudio.play();
+            //playListModel.sendFeedback("trackStarted")
+            //playListModel.playTrack()
+
+            //
+            console.log("Track started")
+
         }
     }
 
@@ -35,7 +42,8 @@ ApplicationWindow {
         id: rootAudio
         onStopped: {
             if (rootAudio.status == MediaPlayer.EndOfMedia) {
-                playListModel.playTrack()
+                console.log("Track finished")
+
                 ++playListModel.currentIndex
             }
         }

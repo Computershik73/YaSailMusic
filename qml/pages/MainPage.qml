@@ -23,6 +23,14 @@ Page {
                 onClicked: topsearchField.visible = true
             }
             MenuItem {
+                text: qsTr("Logout")
+                onClicked: {
+                    auth.removeAccessToken()
+                    auth.removeUserId()
+                    pageContainer.replace(Qt.resolvedUrl("LoginPage.qml"))
+                }
+            }
+            MenuItem {
                 text: qsTr("View playlist")
                 onClicked: pageStack.animatorPush(Qt.resolvedUrl("PlaylistPage.qml"))
             }
@@ -93,7 +101,7 @@ Page {
                 text: rootAudio.isPlaying ? qsTr("Pause") : qsTr("Play")
                 font.pixelSize: Theme.fontSizeMedium
 
-                anchors{  
+                anchors{
                     verticalCenter: medbut.verticalCenter
                 }
             }
