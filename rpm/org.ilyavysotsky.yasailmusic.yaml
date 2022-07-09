@@ -19,7 +19,6 @@ PkgConfigBR:
 
 Requires:
   - sailfishsilica-qt5 >= 0.10.9
-  - mpris-qt5 >= 1.0.5
 
 Files:
   - '%{_bindir}'
