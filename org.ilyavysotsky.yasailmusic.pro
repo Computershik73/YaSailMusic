@@ -11,14 +11,16 @@ SOURCES += \
     src/cacher.cpp \
     src/downloader.cpp \
     src/models/playlistmodel.cpp \
-    src/main.cpp \
+    src/settings.cpp \
+    src/main.cpp
 
 HEADERS += \
     src/apirequest.h \
     src/authorization.h \
     src/cacher.h \
     src/downloader.h \
-    src/models/playlistmodel.h
+    src/models/playlistmodel.h \
+    src/settings.h
 
 DISTFILES += \
     rpm/org.ilyavysotsky.yasailmusic.yaml \
