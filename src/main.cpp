@@ -8,17 +8,14 @@
 #include <QQuickView>
 #include <QScopedPointer>
 #include <QtGlobal>
-#include <QSettings>
-
 #include <sailfishapp.h>
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <QScopedPointer>
+
 #include "authorization.h"
-
 #include "models/playlistmodel.h"
-
+#include "settings.h"
 
 int main(int argc, char *argv[])
 {
@@ -36,7 +33,7 @@ int main(int argc, char *argv[])
     application->setApplicationName(QStringLiteral("yasailmusic"));
 
     QScopedPointer<QQuickView> view(SailfishApp::createView());
-    QSettings settings;
+    Settings settings;
 
     qmlRegisterType<PlaylistModel>("org.ilyavysotsky.yasailmusic",1,0,"PlaylistModel");
     Authorization* auth = new Authorization();
