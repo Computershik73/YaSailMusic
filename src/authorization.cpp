@@ -1,11 +1,11 @@
-
-#include "authorization.h"
 #include <QNetworkRequest>
 #include <QNetworkReply>
 #include <QNetworkAccessManager>
 #include <QJsonDocument>
 #include <QJsonObject>
-#include <QSettings>
+
+#include "authorization.h"
+#include "settings.h"
 
 Authorization::Authorization(QObject *parent) : QObject(parent)
 {
@@ -17,7 +17,7 @@ Authorization::~Authorization()
 
 void Authorization::setupRequest(QNetworkRequest *r)
 {
-    QSettings settings;
+    Settings settings;
     QString accessToken = settings.value("accessToken").toString();
 
     r->setRawHeader("Accept", "*/*");
@@ -52,7 +52,7 @@ void Authorization::doAuth(QString username, QString password)
 
 bool Authorization::checkToken()
 {
-    QSettings settings;
+    Settings settings;
     QString accessToken = settings.value("accessToken").toString();
     QString userId = settings.value("userId").toString();
     QDateTime ttl = settings.value("ttl").toDateTime();
@@ -66,12 +66,12 @@ bool Authorization::checkToken()
 
 
 void Authorization::removeAccessToken() {
-    QSettings settings;
+    Settings settings;
     settings.remove("accessToken");
 }
 
 void Authorization::removeUserId() {
-    QSettings settings;
+    Settings settings;
     settings.remove("userId");
 }
 
@@ -89,7 +89,7 @@ void Authorization::doAuthFinished()
             m_token = jo.value("access_token").toString();
             m_ttl = QDateTime::currentDateTime().addSecs(jo.value("expires_in").toInt());
 
-            QSettings settings;
+            Settings settings;
             settings.setValue("accessToken", m_token);
             settings.setValue("userId", m_userId);
             settings.setValue("ttl", m_ttl);

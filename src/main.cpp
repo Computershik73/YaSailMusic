@@ -8,33 +8,14 @@
 #include <QQuickView>
 #include <QScopedPointer>
 #include <QtGlobal>
-#include <QSettings>
-
 #include <sailfishapp.h>
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <QScopedPointer>
-#include "authorization.h"
 
+#include "authorization.h"
 #include "models/playlistmodel.h"
 #include "settings.h"
-
-void myMessageOutput(QtMsgType type, const QMessageLogContext &context, const QString &msg)
-{
-
-    // QByteArray localMsg = msg.toLocal8Bit();
- QByteArray localMsg = msg.toLocal8Bit();
-    QFile fileOut("/home/defaultuser/YaSailMusicLog.txt"); // Связываем объект с файлом
-    if(fileOut.open(QIODevice::Append | QIODevice::Text))
-    { // Если файл успешно открыт для записи в текстовом режиме
-        fileOut.write(localMsg);
-        fileOut.flush();
-        fileOut.close();
-    }
-
-}
-
 
 int main(int argc, char *argv[])
 {
@@ -52,7 +33,7 @@ int main(int argc, char *argv[])
     application->setApplicationName(QStringLiteral("yasailmusic"));
 
     QScopedPointer<QQuickView> view(SailfishApp::createView());
-    QSettings settings;
+    Settings settings;
 
     qmlRegisterType<PlaylistModel>("org.ilyavysotsky.yasailmusic",1,0,"PlaylistModel");
     Authorization* auth = new Authorization();
