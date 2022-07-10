@@ -3,21 +3,21 @@
 #include <QJsonValue>
 #include <QJsonArray>
 #include <QJsonObject>
-
 #include <QUrlQuery>
 #include <QStandardPaths>
 #include <QDir>
 #include <QNetworkRequest>
 #include <QElapsedTimer>
-#include "playlistmodel.h"
-#include "../authorization.h"
-#include "../cacher.h"
-#include <QSettings>
 #include <QJsonDocument>
 #include <QEventLoop>
 #include <QTimer>
 #include <QThread>
 #include <QGuiApplication>
+
+#include "playlistmodel.h"
+#include "../authorization.h"
+#include "../cacher.h"
+#include "../settings.h"
 
 PlaylistModel::PlaylistModel(QObject *parent)
     : QAbstractListModel(parent)
@@ -189,7 +189,7 @@ void PlaylistModel::playTrack()
     //https://api.music.yandex.net/play-audio?total-played-seconds=0.1&track-length-seconds=281.983&client-now=2022-04-24T06:05:30.742Z&album-id=5939666&end-position-seconds=0.1&from-cache=false&timestamp=2022-04-24T06:05:30.735Z&track-id=44317484&uid=253482261&from=radio-mobile-user-onyourwave-default&play-id=B0A28CEF-61ED-4373-B3A8-B46B545C6096&restored=true
 
     QUrlQuery query;
-    QSettings settings;
+    Settings settings;
     QDateTime current = QDateTime::currentDateTime();
     QString curdt = current.toString("yyyy-MM-ddThh:mm:ss.zzzZ");
     QString userId = settings.value("userId").toString();

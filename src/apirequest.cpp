@@ -3,10 +3,11 @@
 #include <QJsonObject>
 #include <QHttpMultiPart>
 #include <QNetworkReply>
-#include <QSettings>
-#include "apirequest.h"
 #include <QElapsedTimer>
 #include <QGuiApplication>
+
+#include "apirequest.h"
+#include "settings.h"
 
 ApiRequest::ApiRequest(QObject *parent) : QObject(parent) {
     _manager = new QNetworkAccessManager(this);
@@ -28,7 +29,7 @@ void delay(int ms)
 }
 
 void ApiRequest::makeApiGetRequest(const QString &method, const QUrlQuery &q) {
-    QSettings settings;
+    Settings settings;
     QString accessToken = settings.value("accessToken").toString();
 
     QUrlQuery query = q;
@@ -47,7 +48,7 @@ void ApiRequest::makeApiGetRequest(const QString &method, const QUrlQuery &q) {
 }
 
 void ApiRequest::makeApiPostRequest(const QString &method, const QString &q) {
-    QSettings settings;
+    Settings settings;
     QString accessToken = settings.value("accessToken").toString();
 
     QString query = q;
