@@ -15,7 +15,7 @@
 #include "authorization.h"
 #include "models/playlistmodel.h"
 #include "settings.h"
-
+#include "models/searchmodel.h"
 
 int main(int argc, char *argv[])
 {
