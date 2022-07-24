@@ -12,10 +12,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <QScopedPointer>
-
 #include "authorization.h"
 #include "models/playlistmodel.h"
 #include "settings.h"
+
 
 int main(int argc, char *argv[])
 {
@@ -28,6 +28,10 @@ int main(int argc, char *argv[])
     //   - SailfishApp::pathToMainQml() to get a QUrl to the main QML file
     //
     // To display the view, call "show()" (will show fullscreen on device).
+
+
+    // qInstallMessageHandler(myMessageOutput);
+
     QScopedPointer<QGuiApplication> application(SailfishApp::application(argc, argv));
     application->setOrganizationName(QStringLiteral("org.ilyavysotsky"));
     application->setApplicationName(QStringLiteral("yasailmusic"));
@@ -36,6 +40,7 @@ int main(int argc, char *argv[])
     Settings settings;
 
     qmlRegisterType<PlaylistModel>("org.ilyavysotsky.yasailmusic",1,0,"PlaylistModel");
+    qmlRegisterType<SearchModel>("org.ilyavysotsky.yasailmusic",1,0,"SearchModel");
     Authorization* auth = new Authorization();
     view->rootContext()->setContextProperty("application", application.data());
     view->rootContext()->setContextProperty("auth", auth);
