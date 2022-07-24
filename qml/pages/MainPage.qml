@@ -20,7 +20,7 @@ Page {
         PullDownMenu {
             MenuItem {
                 text: qsTr("Search")
-                onClicked: topsearchField.visible = true
+                onClicked: pageStack.animatorPush(Qt.resolvedUrl("SearchPage.qml"))
             }
             MenuItem {
                 text: qsTr("Logout")
@@ -41,25 +41,7 @@ Page {
             title: qsTr("My wave")
         }
 
-        SearchField {
-            id: topsearchField
-            width: parent.width
-            placeholderText: qsTr("Search audio...")
-            visible: false
-            EnterKey.enabled: true
-            onTextChanged: {
-                if (text.length !== 0) {
-                    busyIndicator.running = true
-                    //search
-                }
-                else {
-                    busyIndicator.running = true
-                    visible = false
-                    focus = false
 
-                }
-            }
-        }
 
         contentHeight: mainPage.height
         Row {

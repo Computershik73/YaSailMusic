@@ -11,6 +11,7 @@ SOURCES += \
     src/cacher.cpp \
     src/downloader.cpp \
     src/models/playlistmodel.cpp \
+    src/models/searchmodel.cpp \
     src/settings.cpp \
     src/main.cpp
 
@@ -20,6 +21,7 @@ HEADERS += \
     src/cacher.h \
     src/downloader.h \
     src/models/playlistmodel.h \
+    src/models/searchmodel.h \
     src/settings.h
 
 DISTFILES += \
