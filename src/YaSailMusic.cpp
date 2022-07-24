@@ -10,7 +10,7 @@
 #include <QtGlobal>
 #include <QSettings>
 
-#include </home/okabe2011/SailfishOS/mersdk/targets/SailfishOS-3.4.0.24-armv7hl.default/usr/include/sailfishapp/sailfishapp.h>
+#include <sailfishapp.h>
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -18,6 +18,21 @@
 #include "authorization.h"
 
 #include "models/playlistmodel.h"
+
+void myMessageOutput(QtMsgType type, const QMessageLogContext &context, const QString &msg)
+{
+
+    // QByteArray localMsg = msg.toLocal8Bit();
+ QByteArray localMsg = msg.toLocal8Bit();
+    QFile fileOut("/home/defaultuser/YaSailMusicLog.txt"); // Связываем объект с файлом
+    if(fileOut.open(QIODevice::Append | QIODevice::Text))
+    { // Если файл успешно открыт для записи в текстовом режиме
+        fileOut.write(localMsg);
+        fileOut.flush();
+        fileOut.close();
+    }
+
+}
 
 
 int main(int argc, char *argv[])
@@ -31,6 +46,7 @@ int main(int argc, char *argv[])
     //   - SailfishApp::pathToMainQml() to get a QUrl to the main QML file
     //
     // To display the view, call "show()" (will show fullscreen on device).
+     qInstallMessageHandler(myMessageOutput);
     QScopedPointer<QGuiApplication> application(SailfishApp::application(argc, argv));
     application->setOrganizationName(QStringLiteral("org.ilyavysotsky"));
     application->setApplicationName(QStringLiteral("yasailmusic"));

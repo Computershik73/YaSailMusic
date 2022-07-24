@@ -12,7 +12,6 @@ License:    GNU GPLv3
 URL:        https://vk.com/mobilevika
 Source0:    %{name}-%{version}.tar.bz2
 Requires:   sailfishsilica-qt5 >= 0.10.9
-Requires:   mpris-qt5 >= 1.0.6
 BuildRequires:  pkgconfig(sailfishapp) >= 1.0.2
 BuildRequires:  pkgconfig(Qt5Core)
 BuildRequires:  pkgconfig(Qt5Qml)

@@ -17,4 +17,5 @@ OrganizationName=org.ilyavysotsky
 # ApplicationName does not have to be identical to Name
 ApplicationName=YaSailMusic
 # Add the required permissions here
-Permissions=
+#Permissions=
+Sandboxing=Disabled
