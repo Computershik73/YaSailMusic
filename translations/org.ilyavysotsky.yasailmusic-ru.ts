@@ -57,11 +57,6 @@
         <translation>Моя волна</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="47"/>
-        <source>Search audio...</source>
-	<translation>Поиск аудио...</translation>
-    </message>
-    <message>
         <location filename="../qml/pages/MainPage.qml" line="83"/>
         <source>Play</source>
         <translation>Играть</translation>
@@ -70,11 +65,6 @@
         <location filename="../qml/pages/MainPage.qml" line="83"/>
         <source>Pause</source>
         <translation>Пауза</translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/MainPage.qml" line="101"/>
-        <source>Play</source>
-        <translation>Играть</translation>
     </message>
 </context>
 <context>
@@ -90,7 +80,7 @@
     <message>
         <location filename="../qml/pages/SearchPage.qml" line="19"/>
         <source>Search audio...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Поиск аудио...</translation>
     </message>
 </context>
 <context>

@@ -18,6 +18,8 @@
 #include <QTimer>
 #include <QThread>
 #include <QGuiApplication>
+#include "../track.h"
+#include "../YaSailMusic.h"
 
 SearchModel::SearchModel(QObject *parent)
     : QAbstractListModel(parent)
@@ -37,7 +39,7 @@ SearchModel::SearchModel(QObject *parent)
     m_hash.insert(Qt::UserRole+10 ,QByteArray("storageDir"));
     m_hash.insert(Qt::UserRole+11 ,QByteArray("liked"));
     m_hash.insert(Qt::UserRole+12 ,QByteArray("fileUrl"));
-
+    //SearchModel::model = this;
     m_api = new ApiRequest();
 }
 
@@ -66,7 +68,7 @@ QVariant SearchModel::data(const QModelIndex &index, int role) const {
     if (index.row() >= m_playList.size())
         return QVariant();
 
-    PlaylistModel::Track* item = m_playList.at(index.row());
+    Track* item = m_playList.at(index.row());
     if(role == Qt::UserRole) {
         return item->trackId;
     } else if(role == Qt::UserRole+1) {
@@ -97,7 +99,7 @@ QVariant SearchModel::data(const QModelIndex &index, int role) const {
     return QVariant();
 }
 
-bool SearchModel::insertRows(int position, int rows, PlaylistModel::Track *item, const QModelIndex &index)
+bool SearchModel::insertRows(int position, int rows, Track *item, const QModelIndex &index)
 {
     Q_UNUSED(index);
     if (!(m_playList.contains(item)))
@@ -158,7 +160,7 @@ QVariant SearchModel::get(int idx)
 
     QMap<QString, QVariant> itemData;
 
-    PlaylistModel::Track* item = m_playList.at(idx);
+    Track* item = m_playList.at(idx);
 
 
     itemData.insert("trackId",item->trackId);
@@ -259,7 +261,7 @@ void SearchModel::searchTracks(QString q)
 
     beginRemoveRows(QModelIndex(), 0, m_playList.size()-1);
 
-        m_playList.clear();
+    m_playList.clear();
 
     endRemoveRows();
 
@@ -269,15 +271,20 @@ void SearchModel::searchTracks(QString q)
     QUrlQuery query;
 
     query.addQueryItem("inputType", "0");
-            query.addQueryItem("page", "0");
-            query.addQueryItem("text", q);
-            query.addQueryItem("from", "suggest");
-             query.addQueryItem("type", "track");
-             query.addQueryItem("nocorrect", "false");
+    query.addQueryItem("page", "0");
+    query.addQueryItem("text", q);
+    query.addQueryItem("from", "suggest");
+    query.addQueryItem("type", "track");
+    query.addQueryItem("nocorrect", "false");
 
     m_api->makeApiGetRequest("/search", query);
     connect(m_api, &ApiRequest::gotResponse, this, &SearchModel::getSearchTracksFinished);
 
+}
+
+QList<Track*> SearchModel::playlist() {
+
+    return m_playList;
 }
 
 void SearchModel::getSearchTracksFinished(const QJsonValue &value)
@@ -297,7 +304,7 @@ void SearchModel::getSearchTracksFinished(const QJsonValue &value)
 
     foreach (const QJsonValue & value, results) {
         QJsonObject trackObject = value.toObject();
-        PlaylistModel::Track* newTrack = new PlaylistModel::Track;
+        Track* newTrack = new Track;
         newTrack->trackId = trackObject["id"].toInt();
         newTrack->artistId = trackObject["artists"].toArray().at(0).toObject()["id"].toInt();
         newTrack->artistName = trackObject["artists"].toArray().at(0).toObject()["name"].toString();
@@ -315,23 +322,24 @@ void SearchModel::getSearchTracksFinished(const QJsonValue &value)
         //newTrack->liked = trackObject["liked"].toBool();
 
         if(m_playList.size() == 0) {
-           emit loadFirstDataFinished();
+            emit loadFirstDataFinished();
         }
 
 
 
-      // if(!newTrack->albumName.isEmpty() && (!(m_playList.contains(newTrack))) && !newTrack->trackName.isEmpty() && (!(m_oldValue.toString().contains(trackObject["track"].toObject()["id"].toString())))) {
-            beginInsertRows(QModelIndex(), m_playList.size(), m_playList.size());
-            Cacher* cacher = new Cacher(newTrack);
-            cacher->saveToCache();
-            newTrack->fileUrl = cacher->fileToSave();
-            newTrack->url = cacher->Url();
-            m_playList.push_back(newTrack);
-            endInsertRows();
-       // }
+        // if(!newTrack->albumName.isEmpty() && (!(m_playList.contains(newTrack))) && !newTrack->trackName.isEmpty() && (!(m_oldValue.toString().contains(trackObject["track"].toObject()["id"].toString())))) {
+        beginInsertRows(QModelIndex(), m_playList.size(), m_playList.size());
+        Cacher* cacher = new Cacher(newTrack);
+        cacher->saveToCache();
+        newTrack->fileUrl = cacher->fileToSave();
+        newTrack->url = cacher->Url();
+        m_playList.push_back(newTrack);
+        endInsertRows();
+        // }
     }
 
     //endInsertRows();
     m_loading = false;
+     baseValues_->currentPlaylist=m_playList;
 }
 

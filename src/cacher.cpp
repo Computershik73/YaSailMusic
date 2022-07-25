@@ -10,7 +10,7 @@
 #include <QStandardPaths>
 #include <QXmlStreamReader>
 
-Cacher::Cacher(PlaylistModel::Track *track, QObject *parent) : QObject(parent)
+Cacher::Cacher(Track *track, QObject *parent) : QObject(parent)
 {
     m_track = track;
 }

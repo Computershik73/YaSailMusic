@@ -7,6 +7,7 @@
 #include "playlistmodel.h"
 
 #include "../apirequest.h"
+#include "../track.h"
 
 class SearchModel : public QAbstractListModel
 {
@@ -34,11 +35,13 @@ public:
     explicit SearchModel(QObject *parent = 0);
     virtual ~SearchModel() {};
 
+  //   static SearchModel *model;
+
     int rowCount(const QModelIndex &parent = QModelIndex()) const;
     virtual QVariant data(const QModelIndex &index, int role) const;
     QHash<int, QByteArray> roleNames() const {return m_hash;}
 
-    bool insertRows(int position, int rows, PlaylistModel::Track *item, const QModelIndex &index = QModelIndex());
+    bool insertRows(int position, int rows, Track *item, const QModelIndex &index = QModelIndex());
     bool removeRows(int position, int rows, const QModelIndex &index = QModelIndex());
 
     Q_INVOKABLE void searchTracks(QString q);
@@ -49,6 +52,9 @@ public:
     QString currentSong() { return m_currentSong;}
     QString currentArtist() { return m_currentArtist;}
      bool m_loading;
+      QList<Track*> m_playList;
+      Q_INVOKABLE QList<Track*> playlist();
+
 signals:
     void loadFirstDataFinished();
     void currentIndexChanged(int currentIndex);
@@ -65,7 +71,7 @@ private:
     QString batchid;
     QString m_currentSong;
     QString m_currentArtist;
-    QList<PlaylistModel::Track*> m_playList;
+
     QHash<int,QByteArray> m_hash;
     ApiRequest* m_api;
     QJsonValue m_oldValue;
