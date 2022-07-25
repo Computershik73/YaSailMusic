@@ -19,7 +19,7 @@ Page {
             placeholderText: qsTr("Search audio...")
             visible: true
             EnterKey.enabled: true
-            onTextChanged: {
+            Keys.onReturnPressed: {
                 if (text.length !== 0) {
                     //busyIndicator.running = true
                     //search
@@ -35,6 +35,9 @@ Page {
                     focus = false
 
                 }
+            }
+            onTextChanged: {
+            //поисковые предложения
             }
         }
         delegate: BackgroundItem {
@@ -61,7 +64,10 @@ Page {
             }
 
             onClicked: {
-                searchModel.setCurrentIndex(index)
+
+
+                 playListModel.setNewData()
+                playListModel.setCurrentIndex(index)
                 //playListModel.sendFeedback("trackStarted")
                 //playListModel.playTrack()
                 //playListModel.sendFeedback("trackFinished")

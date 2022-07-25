@@ -3,12 +3,13 @@
 
 #include <QObject>
 #include "models/playlistmodel.h"
+#include "track.h"
 
 class Cacher : public QObject
 {
     Q_OBJECT
 public:
-    explicit Cacher(PlaylistModel::Track* track, QObject *parent = nullptr);
+    explicit Cacher(Track* track, QObject *parent = nullptr);
     void saveToCache();
     QString fileToSave();
     QString Url();
@@ -21,7 +22,7 @@ private slots:
     void saveData(QByteArray data);
 
 private:
-    PlaylistModel::Track* m_track;
+    Track* m_track;
     QString m_fileToSave;
     QString m_Url;
 };

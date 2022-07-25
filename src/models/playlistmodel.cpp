@@ -13,6 +13,8 @@
 #include <QTimer>
 #include <QThread>
 #include <QGuiApplication>
+#include <QtQml>
+#include "../YaSailMusic.h"
 
 #include "playlistmodel.h"
 #include "../authorization.h"
@@ -37,14 +39,34 @@ PlaylistModel::PlaylistModel(QObject *parent)
     m_hash.insert(Qt::UserRole+10 ,QByteArray("storageDir"));
     m_hash.insert(Qt::UserRole+11 ,QByteArray("liked"));
     m_hash.insert(Qt::UserRole+12 ,QByteArray("fileUrl"));
-
+   // PlaylistModel::model = this;
+  // qmlRegisterType<QList<Track*>>("org.ilyavysotsky.yasailmusic",1,0,"QList<Track*>");
     m_api = new ApiRequest();
+    baseValues_->currentPlaylist=m_playList;
 }
 
 
 int PlaylistModel::rowCount(const QModelIndex &parent) const {
     Q_UNUSED(parent)
     return m_playList.size();
+}
+
+void PlaylistModel::setNewData() {
+ /*   beginRemoveRows(QModelIndex(), 0, m_playList.size()-1);
+
+    m_playList.clear();
+
+    endRemoveRows();
+        beginInsertRows(QModelIndex(), 0, new_playList.size()-1);
+           for (int i = 0; i<new_playList.size(); i++) {
+               qDebug() << "data:" << new_playList.at(i)->trackName << "\n";
+               m_playList.append(new_playList.at(i));
+
+}
+
+        endInsertRows();*/
+    m_playList =  baseValues_->currentPlaylist;
+
 }
 
 inline void delayy(int millisecondsWait)
@@ -317,5 +339,6 @@ void PlaylistModel::getWaveFinished(const QJsonValue &value)
 
     //endInsertRows();
     m_loading = false;
+     baseValues_->currentPlaylist=m_playList;
 }
 

@@ -16,6 +16,15 @@
 #include "models/playlistmodel.h"
 #include "settings.h"
 #include "models/searchmodel.h"
+#include "track.h"
+#include "YaSailMusic.h"
+
+BaseValues* baseValues_;
+
+BaseValues::BaseValues()
+{
+
+}
 
 int main(int argc, char *argv[])
 {
@@ -29,9 +38,6 @@ int main(int argc, char *argv[])
     //
     // To display the view, call "show()" (will show fullscreen on device).
 
-
-    // qInstallMessageHandler(myMessageOutput);
-
     QScopedPointer<QGuiApplication> application(SailfishApp::application(argc, argv));
     application->setOrganizationName(QStringLiteral("org.ilyavysotsky"));
     application->setApplicationName(QStringLiteral("yasailmusic"));
@@ -39,8 +45,11 @@ int main(int argc, char *argv[])
     QScopedPointer<QQuickView> view(SailfishApp::createView());
     Settings settings;
 
+    baseValues_ = new BaseValues();
     qmlRegisterType<PlaylistModel>("org.ilyavysotsky.yasailmusic",1,0,"PlaylistModel");
     qmlRegisterType<SearchModel>("org.ilyavysotsky.yasailmusic",1,0,"SearchModel");
+    qmlRegisterType<Track>("org.ilyavysotsky.yasailmusic",1,0,"Track");
+
     Authorization* auth = new Authorization();
     view->rootContext()->setContextProperty("application", application.data());
     view->rootContext()->setContextProperty("auth", auth);
