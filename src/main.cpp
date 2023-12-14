@@ -8,7 +8,7 @@
 #include <QQuickView>
 #include <QScopedPointer>
 #include <QtGlobal>
-#include <sailfishapp.h>
+#include <auroraapp.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <QScopedPointer>
@@ -38,11 +38,11 @@ int main(int argc, char *argv[])
     //
     // To display the view, call "show()" (will show fullscreen on device).
 
-    QScopedPointer<QGuiApplication> application(SailfishApp::application(argc, argv));
+    QScopedPointer<QGuiApplication> application(Aurora::Application::application(argc, argv));
     application->setOrganizationName(QStringLiteral("org.ilyavysotsky"));
     application->setApplicationName(QStringLiteral("yasailmusic"));
 
-    QScopedPointer<QQuickView> view(SailfishApp::createView());
+    QScopedPointer<QQuickView> view(Aurora::Application::createView());
     Settings settings;
 
     baseValues_ = new BaseValues();
@@ -53,7 +53,7 @@ int main(int argc, char *argv[])
     Authorization* auth = new Authorization();
     view->rootContext()->setContextProperty("application", application.data());
     view->rootContext()->setContextProperty("auth", auth);
-    view->setSource(SailfishApp::pathTo("qml/YaSailMusic.qml"));
+    view->setSource(Aurora::Application::pathTo("qml/YaSailMusic.qml"));
     view->show();
 
     return application->exec();

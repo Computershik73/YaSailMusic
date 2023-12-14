@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="ru_RU" sourcelanguage="en_US">
+<TS version="2.1">
 <context>
     <name>LoginPage</name>
     <message>
         <location filename="../qml/pages/LoginPage.qml" line="26"/>
         <source>Login:</source>
-        <translation>Логин:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/LoginPage.qml" line="40"/>
         <source>Password:</source>
-        <translation>Пароль:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/LoginPage.qml" line="76"/>
         <source>Login</source>
-        <translation>Войти</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/LoginPage.qml" line="91"/>
         <source>Logged into Yandex Music</source>
-        <translation>Успешный вход в Яндекс Музыку</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/LoginPage.qml" line="95"/>
         <source>Login fail!</source>
-        <translation>Ошибка входа!</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -34,32 +34,32 @@
     <message>
         <location filename="../qml/pages/MainPage.qml" line="22"/>
         <source>Search</source>
-        <translation>Поиск</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="26"/>
         <source>Logout</source>
-        <translation>Выход</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="34"/>
         <source>View playlist</source>
-        <translation>Просмотр плейлиста</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="41"/>
         <source>My wave</source>
-        <translation>Моя волна</translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/MainPage.qml" line="83"/>
-        <source>Play</source>
-        <translation>Играть</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="83"/>
         <source>Pause</source>
-        <translation>Пауза</translation>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/MainPage.qml" line="83"/>
+        <source>Play</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -67,7 +67,7 @@
     <message>
         <location filename="../qml/pages/PlaylistPage.qml" line="15"/>
         <source>Current tracks</source>
-        <translation>Текущие треки</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -75,7 +75,7 @@
     <message>
         <location filename="../qml/pages/SearchPage.qml" line="19"/>
         <source>Search audio...</source>
-        <translation type="unfinished">Поиск аудио...</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -83,12 +83,12 @@
     <message>
         <location filename="../qml/YaSailMusic.qml" line="72"/>
         <source>Loading</source>
-        <translation>Загрузка</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/YaSailMusic.qml" line="73"/>
         <source>tags...</source>
-        <translation>тэги...</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

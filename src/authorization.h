@@ -19,10 +19,23 @@ public:
     ~Authorization();
 
     static void setupRequest(QNetworkRequest *r);
-    Q_INVOKABLE void doAuth(QString username, QString password);
+    Q_INVOKABLE void doAuth(QString username, QString password, QString hint, QString smscode);
     Q_INVOKABLE bool checkToken();
     Q_INVOKABLE void removeAccessToken();
     Q_INVOKABLE void removeUserId();
+
+    QString track_id;
+    QString yandexuid;
+    QString uniqueuid;
+    QString Session_id;
+    QString sessionid2;
+    QString sessguard;
+    QString yp;
+    QString ys;
+    QString eL;
+    QString yandex_login;
+    QString lah;
+    QString mda2_beacon;
 
 public slots:
 
@@ -32,6 +45,7 @@ private slots:
 signals:
     void error(QString errorMessage);
     void authorized(QString accessToken, QString userId);
+    void captcha(QString phonenumber);
 
 private:
     const QString m_oauthURL = "https://oauth.yandex.ru/token";
@@ -41,6 +55,14 @@ private:
     QString m_token;
     QString m_userId;
     QDateTime m_ttl;
+
+    QString uid;
+    QString batchid;
+    QString userid;
+    QString csrf;
+
+
+    QString process_uuid;
 };
 
 #endif // AUTHORIZATION_H

@@ -53,7 +53,7 @@ Page {
 
         Label {
             id: codeLabel
-            text: qsTr("Code:")
+            text: ""
             visible: false
             color: Theme.primaryColor
         }
@@ -80,7 +80,7 @@ Page {
                 loginField.text = loginField.text.trim()+"@yandex.ru"
             }
 
-            auth.doAuth(loginField.text, passwordField.text, codeField.text)
+            auth.doAuth(loginField.text, passwordField.text, codeLabel.text, codeField.text)
         }
     }
 
@@ -93,6 +93,11 @@ Page {
         }
         onError: {
             banner.notify(qsTr("Login fail!"))
+        }
+        onCaptcha: {
+            codeLabel.visible = true
+            codeField.visible = true
+            codeLabel.text = phonenumber
         }
     }
 }

@@ -1,9 +1,9 @@
 Name: org.ilyavysotsky.yasailmusic
 Summary: The unofficial client for Yandex Music
-Version: 0.1
-Release: 4
+Version: 0.2
+Release: 1
 Group: Qt/Qt
-URL: https://vk.com/mobilevika
+URL: https://vk.com/okabe2011
 License: GNU GPLv3
 Sources:
 - '%{name}-%{version}.tar.bz2'

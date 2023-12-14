@@ -1,7 +1,7 @@
 TARGET = org.ilyavysotsky.yasailmusic
 
 CONFIG += \
-    sailfishapp
+    auroraapp
 
 PKGCONFIG += \
 
@@ -10,6 +10,7 @@ SOURCES += \
     src/authorization.cpp \
     src/cacher.cpp \
     src/downloader.cpp \
+    src/json.cpp \
     src/models/playlistmodel.cpp \
     src/models/searchmodel.cpp \
     src/settings.cpp \
@@ -21,19 +22,21 @@ HEADERS += \
     src/authorization.h \
     src/cacher.h \
     src/downloader.h \
+    src/json.h \
     src/models/playlistmodel.h \
     src/models/searchmodel.h \
     src/settings.h \
-    src/track.h
+    src/track.h \
+    src/YaSailMusic.h
 
 DISTFILES += \
     rpm/org.ilyavysotsky.yasailmusic.yaml \
     LICENSE \
     README.md \
 
-SAILFISHAPP_ICONS = 86x86 108x108 128x128 172x172
+AURORAAPP_ICONS = 86x86 108x108 128x128 172x172
 
-CONFIG += sailfishapp_i18n
+CONFIG += auroraapp_i18n
 
 TRANSLATIONS += \
     translations/org.ilyavysotsky.yasailmusic-ru.ts \
